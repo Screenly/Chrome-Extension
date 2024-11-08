@@ -40,9 +40,10 @@ jobs:
             -v $(pwd)/artifacts:/app/artifacts:delegated \
             -v /app/artifacts/node_modules \
             sce_webpack:latest \
-            /bin/bash -c "npm run build && cd dist && zip -r ../artifacts/screenly-chrome-extension.zip *"
+            /bin/bash -c "npm run build && cp -r dist/ artifacts/"
 
       - name: Upload Archive as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: screenly-chrome-extension
+          path: artifacts/dist
