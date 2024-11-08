@@ -22,24 +22,40 @@ module.exports = {
     },
 
     plugins: [
-        new CopyWebpackPlugin([{
-            from: "src/manifest.json",
-        }]),
-        new CopyWebpackPlugin([{
-            from: "src/assets/images/screenly-logo*",
-            to: "assets/images/",
-            flatten: true,
-        }]),
-        new CopyWebpackPlugin([{
-            from: "src/assets/images/screenly-logo*",
-            to: "assets/images/",
-            flatten: true,
-        }]),
-        new CopyWebpackPlugin([{
-            from: "src/lib/vendor/browser-polyfill.min.js",
-            to: "lib/vendor/",
-            flatten: true,
-        }]),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: "src/manifest.json",
+                }
+            ],
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: "src/assets/images/screenly-logo*",
+                    to: "assets/images/",
+                    flatten: true,
+                },
+            ],
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: "src/assets/images/screenly-logo*",
+                    to: "assets/images/",
+                    flatten: true,
+                },
+            ],
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: "src/lib/vendor/browser-polyfill.min.js",
+                    to: "lib/vendor/",
+                    flatten: true,
+                },
+            ],
+        }),
         new HtmlWebpackPlugin({
             filename: 'popup.html',
             template: 'haml-loader!./src/popup.haml',

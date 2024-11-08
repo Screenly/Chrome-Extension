@@ -15,11 +15,15 @@ module.exports = merge(common, {
     plugins: [
         // It would be nicer to just import jasmine and let webpack handle the rest but
         // Jasmine seems incompatible with that approach. It doesn't import right.
-        new CopyWebpackPlugin([{
-            from: "src/lib/vendor/jasmine",
-            to: "lib/vendor/jasmine",
-            flatten: true,
-        }]),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: "src/lib/vendor/jasmine",
+                    to: "lib/vendor/jasmine",
+                    flatten: true,
+                },
+            ],
+        }),
         new HtmlWebpackPlugin({
             filename: 'test/tests.html',
             template: 'haml-loader!./src/test/tests.haml',
