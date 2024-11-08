@@ -19,8 +19,7 @@ module.exports = merge(common, {
             patterns: [
                 {
                     from: "src/lib/vendor/jasmine",
-                    to: "lib/vendor/jasmine",
-                    flatten: true,
+                    to: "lib/vendor/jasmine/[name][ext]",
                 },
             ],
         }),

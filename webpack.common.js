@@ -33,8 +33,7 @@ module.exports = {
             patterns: [
                 {
                     from: "src/assets/images/screenly-logo*",
-                    to: "assets/images/",
-                    flatten: true,
+                    to: "assets/images/[name][ext]",
                 },
             ],
         }),
@@ -42,8 +41,7 @@ module.exports = {
             patterns: [
                 {
                     from: "src/assets/images/screenly-logo*",
-                    to: "assets/images/",
-                    flatten: true,
+                    to: "assets/images/[name][ext]",
                 },
             ],
         }),
@@ -51,8 +49,7 @@ module.exports = {
             patterns: [
                 {
                     from: "src/lib/vendor/browser-polyfill.min.js",
-                    to: "lib/vendor/",
-                    flatten: true,
+                    to: "lib/vendor/[name][ext]",
                 },
             ],
         }),
