@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Save to Screenly",
   "version": "1.0.1",
   "description": "Display live web pages on your Screenly digital sign.",
