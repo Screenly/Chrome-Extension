@@ -4,7 +4,6 @@
 
 import {
     assert,
-    fetchToken,
     getUser,
     hideElement,
     setButtonWaitState,
@@ -31,12 +30,10 @@ function submitSignIn(e) {
     hideElement(elements.signInError);
     setButtonWaitState(elements.signInButton, true);
 
-    const email = document.querySelector('form.sign-in #email').value;
     const token = document.querySelector('form.sign-in #token').value;
 
     browser.storage.sync
         .set({
-            username: email,
             token: token,
         })
         .then(reload)
@@ -64,8 +61,7 @@ export function initOptions() {
     elements.signUpLink.href = `https://login.screenlyapp.com/sign-up?next=${window.location.href}`
 
     getUser().then((user) => {
-        if (user.username) {
-            document.querySelector('#signed-in-page .username').textContent = user.username;
+        if (user.token) {
             showPage(elements.signedInPage);
             console.info(user);
         } else {

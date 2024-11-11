@@ -38,6 +38,7 @@ function callApi(method, url, data=undefined, token=undefined) {
         method: method,
         headers: {
             'Content-Type': 'application/json',
+            'Prefer': 'return=representation',
         }
     };
 
@@ -71,25 +72,14 @@ function callApi(method, url, data=undefined, token=undefined) {
         });
 }
 
-export function fetchToken(email, password) {
-    console.info(`Getting token for ${email}...`);
-    return callApi(
-        "POST",
-        "https://api.screenlyapp.com/api/v3/tokens/",
-        {
-            username: email,
-            password: password,
-        });
-}
-
 export function getUser() {
-    return browser.storage.sync.get(['username', 'token']);
+    return browser.storage.sync.get(['token']);
 }
 
 export function createWebAsset(user, url, title, headers, disableVerification) {
     return callApi(
         "POST",
-        "https://api.screenlyapp.com/api/v3/assets/",
+        "https://api.screenlyapp.com/api/v4.1/assets/",
         {
             "source_url": url,
             "title": title,
@@ -101,9 +91,10 @@ export function createWebAsset(user, url, title, headers, disableVerification) {
 }
 
 export function updateWebAsset(assetId, user, url, title, headers, disableVerification) { // eslint-disable-line no-unused-vars
+    let queryParams = `id=eq.${encodeURIComponent(assetId)}`;
     return callApi(
         "PATCH",
-        `https://api.screenlyapp.com/api/v3/assets/${encodeURIComponent(assetId)}/`,
+        `https://api.screenlyapp.com/api/v4.1/assets/?${queryParams}`,
         {
             "title": title,
             "headers": headers,
@@ -115,7 +106,7 @@ export function updateWebAsset(assetId, user, url, title, headers, disableVerifi
 export function getWebAsset(assetId, user) {
     return callApi(
         "GET",
-        `https://api.screenlyapp.com/api/v3/assets/${encodeURIComponent(assetId)}/`,
+        `https://api.screenlyapp.com/api/v4.1/assets/${encodeURIComponent(assetId)}/`,
         null,
         user.token
     )

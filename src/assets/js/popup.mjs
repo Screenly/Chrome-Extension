@@ -77,8 +77,13 @@ function addToScreenly() {
     action
         .then((result) => {
             console.debug(result);
-            State.setSavedAssetState(currentProposal.url, result.id, includeAuth, disableVerification);
-            showSuccess(getAssetDashboardLink(result.id));
+
+            if (result.length === 0) {
+                throw "No asset data returned";
+            }
+
+            State.setSavedAssetState(currentProposal.url, result[0].id, includeAuth, disableVerification);
+            showSuccess(getAssetDashboardLink(result[0].id));
         })
         .catch((error) => {
             if (error.statusCode === 401) {
@@ -166,7 +171,7 @@ function prepareToAddToScreenly(user) {
     // TODO In a future version we may allow cookies from every resource domain.
     const onlyPrimaryDomain = true;
 
-    if (!user.username) {
+    if (!user.token) {
         showPage(elements.signInPage);
         return;
     }

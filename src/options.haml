@@ -12,8 +12,6 @@
       .page#sign-in-page
         %form.sign-in
           .form-group
-            %input.form-control#email{:type => "email", :placeholder => "Email address", :required => "true"}
-          .form-group
             %input.form-control#token{:type => "password", :placeholder => "Token", :required => "true"}
           %button.btn.btn-primary.w-100#sign-in-submit{:type => "submit"}
             %span.spinner.spinner-border.spinner-border-sm{:ariaHidden => "true", :hidden => "true"}
@@ -28,8 +26,7 @@
 
       .page#signed-in-page
         %section
-          Signed in as:
-          %span.font-weight-bold.text-break.username
+          Signed in
         %section.mt-3
           %button.btn.btn-primary.w-100#sign-out{:type => "submit"}
             %span.spinner.spinner-border.spinner-border-sm{:ariaHidden => "true", :hidden => "true"}
