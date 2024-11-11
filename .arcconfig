@@ -1,5 +1,0 @@
-{
-    "phabricator.uri": "https://ph.wireload.net",
-    "history.immutable": true,
-    "load": ["src/lib/vendor/pinterest-linters"]
-}

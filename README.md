@@ -1,5 +1,7 @@
-# Develop
+[![Build Screenly Chrome Extension](https://github.com/Screenly/Chrome-Extension/actions/workflows/build.yaml/badge.svg)](https://github.com/Screenly/Chrome-Extension/actions/workflows/build.yaml)
+[![sbomified](https://sbomify.com/assets/images/logo/badge.svg)](https://app.sbomify.com/component/NwxGnn8u8K)
 
+# Develop
 The extension is built using webpack.
 
 ```bash

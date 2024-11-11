@@ -4,17 +4,20 @@ name: Build Screenly Chrome Extension
 on:
   pull_request:
     branches:
-    - master
-    - production
+      - master
   push:
     branches:
       - master
-      - production
+    tags:
+      - v*.*
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     name: Build and Generate Artifact
+    permissions:
+      id-token: write
+      contents: read
+      attestations: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,8 +45,48 @@ jobs:
             sce_webpack:latest \
             /bin/bash -c "npm run build && cp -r dist/ artifacts/"
 
+      - name: Compress
+        run: |
+          cd artifacts/dist/
+          zip -r ${{ github.workspace }}/screenly-chrome-extension.zip .
+
+      - name: Attest
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: '${{ github.workspace }}/screenly-chrome-extension.zip'
+
       - name: Upload Archive as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: screenly-chrome-extension
-          path: artifacts/dist
+          path: screenly-chrome-extension.zip
+
+  generate-sbom:
+    runs-on: ubuntu-latest
+    name: Generate SBOM
+    permissions:
+      id-token: write
+      contents: read
+      attestations: write
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upload SBOM
+        uses: sbomify/github-action@master
+        env:
+          TOKEN: ${{ secrets.SBOMIFY_TOKEN }}
+          COMPONENT_ID: 'NwxGnn8u8K'
+          OVERRIDE_SBOM_METADATA: true
+          SBOM_VERSION: ${{ github.ref_name }}
+          LOCK_FILE: 'package-lock.json'
+          OUTPUT_FILE: 'chrome-extension.cdx.json'
+          AUGMENT: true
+          ENRICH: true
+
+      - name: Attest build
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: '${{ github.workspace }}/chrome-extension.cdx.json'

@@ -1,3 +1,0 @@
-[submodule "src/lib/vendor/pinterest-linters"]
-	path = src/lib/vendor/pinterest-linters
-	url = https://github.com/pinterest/arcanist-linters.git
