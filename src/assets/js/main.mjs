@@ -79,7 +79,7 @@ export function getUser() {
 export function createWebAsset(user, url, title, headers, disableVerification) {
     return callApi(
         "POST",
-        "https://api.screenlyapp.com/api/v4.1/assets/",
+        "https://api.screenlyapp.com/api/v4/assets/",
         {
             "source_url": url,
             "title": title,
@@ -94,7 +94,7 @@ export function updateWebAsset(assetId, user, url, title, headers, disableVerifi
     let queryParams = `id=eq.${encodeURIComponent(assetId)}`;
     return callApi(
         "PATCH",
-        `https://api.screenlyapp.com/api/v4.1/assets/?${queryParams}`,
+        `https://api.screenlyapp.com/api/v4/assets/?${queryParams}`,
         {
             "title": title,
             "headers": headers,
@@ -106,7 +106,7 @@ export function updateWebAsset(assetId, user, url, title, headers, disableVerifi
 export function getWebAsset(assetId, user) {
     return callApi(
         "GET",
-        `https://api.screenlyapp.com/api/v4.1/assets/${encodeURIComponent(assetId)}/`,
+        `https://api.screenlyapp.com/api/v4/assets/${encodeURIComponent(assetId)}/`,
         null,
         user.token
     )
