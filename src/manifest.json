@@ -9,13 +9,16 @@
     "128": "assets/images/screenly-logo-128.png"
   },
   "permissions": [
-      "storage",
-      "activeTab",
-      "cookies",
-      "http://*/*",
-      "https://*/*"
+    "activeTab",
+    "storage",
+    "scripting",
+    "cookies"
   ],
-  "browser_action": {
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "action": {
     "default_popup": "popup.html",
     "default_title": "Save to Screenly",
     "default_icon": {
