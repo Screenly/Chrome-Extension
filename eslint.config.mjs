@@ -29,11 +29,12 @@ export default [
             globals: {
                 ...globals.browser,
                 ...globals.jasmine,
+                ...globals.node,
                 Atomics: "readonly",
                 SharedArrayBuffer: "readonly",
             },
 
-            ecmaVersion: 2018,
+            ecmaVersion: "latest",
             sourceType: "module",
         },
 
