@@ -13,22 +13,30 @@ const compat = new FlatCompat({
     allConfig: js.configs.all
 });
 
-export default [...compat.extends("eslint:recommended", "plugin:jasmine/recommended"), {
-    plugins: {
-        jasmine,
+export default [
+    ...compat.extends("eslint:recommended", "plugin:jasmine/recommended"),
+    {
+        ignores: [
+            "src/lib/vendor"
+        ]
     },
-
-    languageOptions: {
-        globals: {
-            ...globals.browser,
-            ...globals.jasmine,
-            Atomics: "readonly",
-            SharedArrayBuffer: "readonly",
+    {
+        plugins: {
+            jasmine,
         },
 
-        ecmaVersion: 2018,
-        sourceType: "module",
-    },
+        languageOptions: {
+            globals: {
+                ...globals.browser,
+                ...globals.jasmine,
+                Atomics: "readonly",
+                SharedArrayBuffer: "readonly",
+            },
 
-    rules: {},
-}];
+            ecmaVersion: 2018,
+            sourceType: "module",
+        },
+
+        rules: {},
+    }
+];
