@@ -2,4 +2,4 @@
 
 import {initPopup} from "./popup.mjs";
 
-initPopup();
+await initPopup();

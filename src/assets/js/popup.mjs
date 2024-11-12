@@ -167,59 +167,6 @@ function proposeToAddToScreenly(user, url, title, cookieJar) {
         });
 }
 
-function prepareToAddToScreenly(user) {
-    // TODO In a future version we may allow cookies from every resource domain.
-    const onlyPrimaryDomain = true;
-
-    if (!user.token) {
-        showPage(elements.signInPage);
-        return;
-    }
-
-    console.info(user);
-
-    browser.tabs.executeScript({
-        code: '[window.location.href, document.title, performance.getEntriesByType("resource").map(e => e.name)]',
-    }).then(([[pageUrl, pageTitle, resourceEntries]]) => {
-        if (!resourceEntries) {
-            console.info("Current page has no resources.");
-            return;
-        }
-
-        const originDomain = new URL(pageUrl).host;
-
-        Promise.all(
-            resourceEntries.map(url =>
-                browser.cookies.getAll({url})
-            )
-        ).then(results => {
-            // At this point we'll create a "cookie jar". Some cookies will repeat
-            // (since different subdomains may receive the same cookies). So we deduplicate
-            // by domain and name.
-
-            let cookieJar = Array.from(new Map(results
-                    .flat(1)
-                    .map(cookie => [JSON.stringify([cookie.domain, cookie.name]), cookie])
-                ).values()
-            );
-
-            if (onlyPrimaryDomain) {
-                // noinspection JSUnresolvedVariable
-                cookieJar = cookieJar.filter(cookie =>
-                    cookie.domain === originDomain || (!cookie.hostOnly && originDomain.endsWith(cookie.domain))
-                )
-            }
-
-            console.info("Jar: ", cookieJar);
-
-            proposeToAddToScreenly(user, pageUrl, pageTitle, cookieJar);
-        });
-    }).catch(error => {
-        console.error("Failed to list resources (%s).", error.message);
-        window.close();
-    });
-}
-
 function showFailure(message) {
     setAddActivityState(false);
     elements.addItError.textContent = message;
@@ -231,7 +178,72 @@ function showSuccess(assetUrl) {
     showPage(elements.successPage);
 }
 
-export function initPopup() {
+async function prepareToAddToScreenly(user) {
+    const onlyPrimaryDomain = true;
+
+    if (!user.token) {
+        showPage(elements.signInPage);
+        return;
+    }
+
+    let tabs = await browser.tabs.query({ active: true, currentWindow: true });
+    let tabId = tabs[0].id;
+
+    try {
+        let result = await browser.scripting.executeScript({
+            target: { tabId: tabId },
+            func: () => {
+                return [
+                    window.location.href,
+                    document.title,
+                    performance.getEntriesByType("resource").map(e => e.name)
+                ];
+            }
+        });
+
+        let [pageUrl, pageTitle, resourceEntries] = result[0].result;
+
+        if (!resourceEntries) {
+            console.info("Current page has no resources.");
+            return;
+        }
+
+        const originDomain = new URL(pageUrl).host;
+
+        let results = await Promise.all(
+            resourceEntries.map(url =>
+                browser.cookies.getAll({ url })
+            )
+        );
+
+        let cookieJar = Array.from(
+            new Map(
+                results
+                    .flat(1)
+                    .map(cookie =>
+                        [
+                            JSON.stringify([cookie.domain, cookie.name]),
+                            cookie
+                        ]
+                    )
+            ).values()
+        );
+
+        if (onlyPrimaryDomain) {
+            // noinspection JSUnresolvedVariable
+            cookieJar = cookieJar.filter(cookie =>
+                cookie.domain === originDomain || (!cookie.hostOnly && originDomain.endsWith(cookie.domain))
+            )
+        }
+
+        proposeToAddToScreenly(user, pageUrl, pageTitle, cookieJar);
+    } catch (error) {
+        console.error("Failed to list resources (%s).", error.message);
+        window.close();
+    }
+}
+
+export async function initPopup() {
     for (let [key, value] of Object.entries(elements)) {
         assert(value, `${key} not found`);
     }
@@ -267,5 +279,6 @@ export function initPopup() {
         window.close();
     });
 
-    getUser().then(prepareToAddToScreenly);
+    let user = await getUser();
+    await prepareToAddToScreenly(user);
 }
