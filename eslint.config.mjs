@@ -17,7 +17,9 @@ export default [
     ...compat.extends("eslint:recommended", "plugin:jasmine/recommended"),
     {
         ignores: [
-            "src/lib/vendor"
+            "src/lib/vendor/",
+            "node_modules/",
+            "dist/",
         ]
     },
     {
