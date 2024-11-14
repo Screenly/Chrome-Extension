@@ -35,7 +35,7 @@ jobs:
             sce_webpack:latest \
             /bin/bash -c "npx webpack --config webpack.dev.js && npm run test"
 
-      - name: Prepare Environment Variables
+      - name: Prepare manifest.json
         run: |
           if [[ $GITHUB_REF == refs/tags/v* ]]; then
             # echo "SCREENLY_CE_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
@@ -48,7 +48,7 @@ jobs:
           ls -l
 
           cp src/manifest.json manifest.json.template
-          cat manifest.json | envsubst > src/manifest.json
+          cat manifest.json.template | envsubst > src/manifest.json
           rm manifest.json.template
 
       - name: Build and Package the Extension
