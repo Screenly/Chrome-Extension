@@ -25,21 +25,14 @@ jobs:
       - name: Prepare manifest.json
         run: |
           if [[ $GITHUB_REF == refs/tags/v* ]]; then
-            # echo "SCREENLY_CE_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
             export SCREENLY_CE_VERSION=${GITHUB_REF#refs/tags/v}
           else
-            # echo "SCREENLY_CE_VERSION=0.0.0" >> $GITHUB_ENV
-            export SCREENLY_CE_VERSION=0.0.0
+            export SCREENLY_CE_VERSION=$(git describe --tags --abbrev=0)
           fi
-
-          ls -l
-          echo "SCREENLY_CE_VERSION=${SCREENLY_CE_VERSION}"
-          cat src/manifest.json
 
           cp src/manifest.json manifest.json.template
           cat manifest.json.template | envsubst > src/manifest.json
           rm manifest.json.template
-          cat src/manifest.json
 
       - name: Build Docker images
         run: |
