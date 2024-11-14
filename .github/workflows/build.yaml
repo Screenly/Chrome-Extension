@@ -22,19 +22,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build Docker images
-        run: |
-          docker compose build
-
-      - name: Run Unit Tests
-        run: |
-          docker run \
-            --rm \
-            -v $(pwd):/app:delegated \
-            -v /app/node_modules \
-            sce_webpack:latest \
-            /bin/bash -c "npx webpack --config webpack.dev.js && npm run test"
-
       - name: Prepare manifest.json
         run: |
           if [[ $GITHUB_REF == refs/tags/v* ]]; then
@@ -53,6 +40,19 @@ jobs:
           cat manifest.json.template | envsubst > src/manifest.json
           rm manifest.json.template
           cat src/manifest.json
+
+      - name: Build Docker images
+        run: |
+          docker compose build
+
+      - name: Run Unit Tests
+        run: |
+          docker run \
+            --rm \
+            -v $(pwd):/app:delegated \
+            -v /app/node_modules \
+            sce_webpack:latest \
+            /bin/bash -c "npx webpack --config webpack.dev.js && npm run test"
 
       - name: Build and Package the Extension
         run: |
