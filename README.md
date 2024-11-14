@@ -13,6 +13,8 @@ Now load the content of the `dist/` folder as an unpacked extension in Chrome. A
 # Distribute
 
 ```bash
+$ VERSION=0.4
+$ cat <<< $(cat src/manifest.json | jq --arg version "$VERSION" '.version = $version') > src/manifest.json
 $ docker compose build
 $ docker run \
     --rm -ti \
