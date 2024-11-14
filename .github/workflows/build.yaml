@@ -27,7 +27,7 @@ jobs:
           if [[ $GITHUB_REF == refs/tags/v* ]]; then
             export SCREENLY_CE_VERSION=${GITHUB_REF#refs/tags/v}
           else
-            export SCREENLY_CE_VERSION=$(git describe --tags --abbrev=0)
+            export SCREENLY_CE_VERSION="0.0.0"
           fi
 
           cp src/manifest.json manifest.json.template
