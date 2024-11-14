@@ -45,15 +45,20 @@ jobs:
             sce_webpack:latest \
             /bin/bash -c "npm run build && cp -r dist/ artifacts/"
 
-      - name: Set SCREENLY_CE_VERSION to tag name.
-        if: startsWith(github.ref, 'refs/tags/')
-        run: echo "SCREENLY_CE_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - name: Prepare Environment Variables
+        run: |
+          if [[ $GITHUB_REF == refs/tags/v* ]]; then
+            echo "SCREENLY_CE_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+          else
+            echo "SCREENLY_CE_VERSION=0.0.0" >> $GITHUB_ENV
+          fi
 
       - name: Compress
         run: |
+          cp artifacts/dist/manifest.json manifest.json
+          cat manifest.json | envsubst > artifacts/dist/manifest.json
+
           cd artifacts/dist/
-          SCREENLY_CE_VERSION=${SCREENLY_CE_VERSION:-0.0.0}
-          echo "SCREENLY_CE_VERSION=${SCREENLY_CE_VERSION}"
           zip -r ${{ github.workspace }}/screenly-chrome-extension.zip .
 
       - name: Attest
