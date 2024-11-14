@@ -7,17 +7,6 @@ import {
     State
 } from "../../assets/js/main.mjs";
 
-function mockFetchResponse(status, statusText, body) {
-    return Promise.resolve({
-        ok: status >= 200 && status < 300,
-        status: status,
-        statusText: statusText,
-        json: () => {
-            return Promise.resolve(JSON.parse(body));
-        },
-    });
-}
-
 describe("State.normalizeUrl", function() {
     const behaviours = [
         ['https://example.com', 'https://example.com'],

@@ -2,6 +2,7 @@ const path = require('path');
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: {
@@ -14,7 +15,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader'
                 ]
             }
@@ -63,6 +64,8 @@ module.exports = {
             template: 'haml-loader!./src/options.haml',
             chunks: ['options']
         }),
+
+        new MiniCssExtractPlugin(),
 
         new RemovePlugin({
             before: {
