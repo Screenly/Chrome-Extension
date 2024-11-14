@@ -47,6 +47,8 @@ jobs:
 
       - name: Compress
         run: |
+          ls -l
+          ls -l artifacts/dist/
           cd artifacts/dist/
           zip -r ${{ github.workspace }}/screenly-chrome-extension.zip .
 
