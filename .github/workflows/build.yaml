@@ -35,6 +35,22 @@ jobs:
             sce_webpack:latest \
             /bin/bash -c "npx webpack --config webpack.dev.js && npm run test"
 
+      - name: Prepare Environment Variables
+        run: |
+          if [[ $GITHUB_REF == refs/tags/v* ]]; then
+            # echo "SCREENLY_CE_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+            export SCREENLY_CE_VERSION=${GITHUB_REF#refs/tags/v}
+          else
+            # echo "SCREENLY_CE_VERSION=0.0.0" >> $GITHUB_ENV
+            export SCREENLY_CE_VERSION=0.0.0
+          fi
+
+          ls -l
+
+          cp src/manifest.json manifest.json.template
+          cat manifest.json | envsubst > src/manifest.json
+          rm manifest.json.template
+
       - name: Build and Package the Extension
         run: |
           mkdir artifacts
@@ -45,23 +61,8 @@ jobs:
             sce_webpack:latest \
             /bin/bash -c "npm run build && cp -r dist/ artifacts/"
 
-      - name: Prepare Environment Variables
-        run: |
-          if [[ $GITHUB_REF == refs/tags/v* ]]; then
-            echo "SCREENLY_CE_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
-          else
-            echo "SCREENLY_CE_VERSION=0.0.0" >> $GITHUB_ENV
-          fi
-
       - name: Compress
         run: |
-          cp artifacts/dist/manifest.json manifest.json
-          echo "USER: $USER"
-          echo "whoami: $(whoami)"
-          ls -l artifacts/dist/
-          ls -l manifest.json
-          sudo cat manifest.json | envsubst > artifacts/dist/manifest.json
-
           cd artifacts/dist/
           zip -r ${{ github.workspace }}/screenly-chrome-extension.zip .
 
