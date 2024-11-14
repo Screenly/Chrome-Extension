@@ -56,6 +56,10 @@ jobs:
       - name: Compress
         run: |
           cp artifacts/dist/manifest.json manifest.json
+          echo "USER: $USER"
+          echo "whoami: $(whoami)"
+          ls -l artifacts/dist/
+          ls -l manifest.json
           cat manifest.json | envsubst > artifacts/dist/manifest.json
 
           cd artifacts/dist/
