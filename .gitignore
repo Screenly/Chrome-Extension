@@ -17,3 +17,5 @@ _gulp-version
 /dist
 /src/test/tests.html
 node_modules
+
+screenly-chrome-extension-*.zip

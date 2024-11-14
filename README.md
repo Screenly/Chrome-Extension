@@ -13,17 +13,7 @@ Now load the content of the `dist/` folder as an unpacked extension in Chrome. A
 # Distribute
 
 ```bash
-$ VERSION=0.4
-$ cat <<< $(cat src/manifest.json | jq --arg version "$VERSION" '.version = $version') > src/manifest.json
-$ docker compose build
-$ docker run \
-    --rm -ti \
-    -v $(pwd):/app:delegated \
-    -v /app/node_modules \
-    sce_webpack:latest \
-    /bin/bash -c "npx webpack --config webpack.prod.js"
-
-(cd dist && zip -r ../screenly-chrome-extension-0.4.zip *)
+$ VERSION=<EXTENSION_VERSION> ./bin/package_extension.sh
 ```
 
 # Unit testing
