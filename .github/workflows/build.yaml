@@ -47,7 +47,7 @@ jobs:
 
           ls -l
           echo "SCREENLY_CE_VERSION=${SCREENLY_CE_VERSION}"
-          cat src/manifest.json | envsubst > src/manifest.json
+          cat src/manifest.json
 
           cp src/manifest.json manifest.json.template
           cat manifest.json.template | envsubst > src/manifest.json
