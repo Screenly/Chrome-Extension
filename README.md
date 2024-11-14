@@ -21,7 +21,7 @@ $ docker run \
     sce_webpack:latest \
     /bin/bash -c "npx webpack --config webpack.prod.js"
 
-(cd dist && zip -r ../screenly-chrome-extension-0.3.zip *)
+(cd dist && zip -r ../screenly-chrome-extension-0.4.zip *)
 ```
 
 # Unit testing
