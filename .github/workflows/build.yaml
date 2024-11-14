@@ -60,7 +60,7 @@ jobs:
           echo "whoami: $(whoami)"
           ls -l artifacts/dist/
           ls -l manifest.json
-          cat manifest.json | envsubst > artifacts/dist/manifest.json
+          sudo cat manifest.json | envsubst > artifacts/dist/manifest.json
 
           cd artifacts/dist/
           zip -r ${{ github.workspace }}/screenly-chrome-extension.zip .
