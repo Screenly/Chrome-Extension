@@ -2,10 +2,11 @@
 [![sbomified](https://sbomify.com/assets/images/logo/badge.svg)](https://app.sbomify.com/component/NwxGnn8u8K)
 
 # Develop
-The extension is built using webpack.
+
+The extension is built using [webpack](https://webpack.js.org/).
 
 ```bash
-$ docker compose up
+$ docker compose up --build
 ```
 
 Now load the content of the `dist/` folder as an unpacked extension in Chrome. As you make changes to the code, dist is automatically rebuilt.
