@@ -25,7 +25,7 @@ module.exports = merge(common, {
         }),
         new HtmlWebpackPlugin({
             filename: 'test/tests.html',
-            template: 'haml-loader!./src/test/tests.haml',
+            template: './src/test/tests.html',
             chunks: ['tests'],
         }),
     ],
