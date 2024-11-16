@@ -3,7 +3,7 @@
 /* global browser */
 
 import '../../lib/vendor/bootstrap/css/bootstrap.css';
-import '../css/style.css';
+import '../scss/style.scss';
 import "../../lib/vendor/normalize-url.js";
 
 export function assert(condition, msg=undefined) {
