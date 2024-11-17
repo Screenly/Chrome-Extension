@@ -2,7 +2,7 @@
     Google Chrome Extension for Screenly
 </h1>
 
-Easily add content to your Screenly digital signage displays in a few clicks.
+<p align="center">Easily add content to your Screenly digital signage displays in a few clicks.</p>
 
 <p align="center">
     <a href="https://github.com/Screenly/Chrome-Extension/actions/workflows/build.yaml?query=branch%3Amaster">
