@@ -2,8 +2,6 @@
     Google Chrome Extension for Screenly
 </h1>
 
-<p align="center">Easily add content to your Screenly digital signage displays in a few clicks.</p>
-
 <p align="center">
     <a href="https://github.com/Screenly/Chrome-Extension/actions/workflows/build.yaml?query=branch%3Amaster">
         <img alt="GitHub Actions Workflow Status"
@@ -17,7 +15,9 @@
     </a>
 </p>
 
-# Develop
+<h5 align="center">Easily add content to your Screenly digital signage displays in a few clicks. :sparkles:</h5>
+
+# :computer: Develop
 
 The extension is built using [webpack](https://webpack.js.org/).
 
@@ -27,13 +27,13 @@ $ docker compose up --build
 
 Now load the content of the `dist/` folder as an unpacked extension in Chrome. As you make changes to the code, dist is automatically rebuilt.
 
-# Distribute
+# :package: Distribute
 
 ```bash
 $ VERSION=<EXTENSION_VERSION> ./bin/package_extension.sh
 ```
 
-# Unit testing
+# :test_tube: Unit testing
 
 ```bash
 $ docker compose build
