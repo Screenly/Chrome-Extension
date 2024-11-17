@@ -15,7 +15,11 @@
     </a>
 </p>
 
-<h5 align="center">Easily add content to your Screenly digital signage displays in a few clicks. :sparkles:</h5>
+<a href="https://chromewebstore.google.com/detail/save-to-screenly/kcoehkngnbhlmdcgcadliaadlmbjmcln?hl=en">
+    <h5 align="center">
+        Easily add content to your Screenly digital signage displays in a few clicks. :sparkles:
+    </h5>
+</a>
 
 ## :computer: Develop
 
