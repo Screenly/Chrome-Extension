@@ -20,7 +20,7 @@
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.3",
     "karma": "^6.4.4",
-    "karma-chrome-launcher": "^2.2.0",
+    "karma-chrome-launcher": "^3.2.0",
     "karma-jasmine": "^2.0.1",
     "mini-css-extract-plugin": "^2.9.2",
     "puppeteer": "^1.18.1",

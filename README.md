@@ -40,14 +40,7 @@ $ VERSION=<EXTENSION_VERSION> ./bin/package_extension.sh
 ## :test_tube: Unit testing
 
 ```bash
-$ docker compose build
-$ docker run \
-    --rm -ti \
-    -v $(pwd):/app:delegated \
-    -v /app/node_modules \
-    sce_webpack:latest \
-    /bin/bash -c "npx webpack --config webpack.dev.js && npm test"
-
+$ ./bin/run_tests.sh
 ```
 
 1. Build the extension in dev mode.
