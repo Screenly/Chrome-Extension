@@ -49,7 +49,7 @@ $ ./bin/run_tests.sh
 
 ## :rocket: Release
 
-* Generate a new relase tag in `git`:
+* Generate a new release tag in `git`:
 
 ```bash
 $ git pull
