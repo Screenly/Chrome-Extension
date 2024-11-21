@@ -25,6 +25,7 @@
     "karma-chrome-launcher": "^3.2.0",
     "karma-jasmine": "^2.0.1",
     "lit": "^3.2.1",
+    "lit-css-loader": "^3.0.0",
     "mini-css-extract-plugin": "^2.9.2",
     "puppeteer": "^1.18.1",
     "remove-files-webpack-plugin": "^1.1.3",
