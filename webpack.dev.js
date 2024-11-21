@@ -1,4 +1,4 @@
-const merge = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const common = require('./webpack.common.js');
 
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -25,7 +25,7 @@ module.exports = merge(common, {
         }),
         new HtmlWebpackPlugin({
             filename: 'test/tests.html',
-            template: 'haml-loader!./src/test/tests.haml',
+            template: './src/test/tests.html',
             chunks: ['tests'],
         }),
     ],

@@ -12,8 +12,7 @@ build/*
 _gulp-version
 
 /.idea/workspace.xml
-/options.html
-/popup.html
 /dist
-/src/test/tests.html
 node_modules
+
+screenly-chrome-extension-*.zip

@@ -13,10 +13,11 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /\.s?css$/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    'css-loader'
+                    'css-loader',
+                    'sass-loader',
                 ]
             }
         ]
@@ -56,12 +57,12 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: 'popup.html',
-            template: 'haml-loader!./src/popup.haml',
+            template: './src/popup.html',
             chunks: ['popup']
         }),
         new HtmlWebpackPlugin({
             filename: 'options.html',
-            template: 'haml-loader!./src/options.haml',
+            template: './src/options.html',
             chunks: ['options']
         }),
 
