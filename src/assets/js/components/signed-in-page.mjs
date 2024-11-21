@@ -1,3 +1,5 @@
+/* global browser */
+
 import {html, LitElement} from 'lit-element';
 import {getGlobalStyle} from '../helpers.mjs';
 
@@ -10,8 +12,15 @@ export class SignedIn extends LitElement {
     return [getGlobalStyle()]
   }
 
-  signOut(event) {
+  async signOut(event) {
     event.preventDefault();
+
+    try {
+      await browser.storage.sync.clear();
+    } catch {
+      return;
+    }
+
     this.dispatchEvent(new CustomEvent('sign-out'));
   }
 

@@ -34,7 +34,7 @@ export function setButtonWaitState(element, state) {
     element.querySelector(".label").hidden = state;
 }
 
-function callApi(method, url, data=undefined, token=undefined) {
+export function callApi(method, url, data=undefined, token=undefined) {
     let init = {
         method: method,
         headers: {
