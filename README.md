@@ -59,7 +59,7 @@ $ git tag
 $ git tag -a vX.Y.Z -m "tl;dr changelog."
 $ git push origin vX.Y.Z
 ```
-* Navigate to the [GitHub releases](https://github.com/Screenly/Chrome-Extension/releases) and create select 'Draft a new release'.
+* Navigate to the [GitHub releases](https://github.com/Screenly/Chrome-Extension/releases) and click 'Draft a new release'.
 * Select the tag you just created above and provide a release title and description.
   * You can use `git diff v0.2.0..v0.3.0` to diff between the current and previous release to help you with the changelog.
 * Go to the [CI Job](https://github.com/Screenly/Chrome-Extension/actions/workflows/build.yaml) and pull down the release `.zip` file for the release you created.
