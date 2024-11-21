@@ -1,12 +1,13 @@
 import {html, LitElement} from 'lit-element';
+import {getGlobalStyle} from '../helpers.mjs';
 
 export class SignedIn extends LitElement {
   constructor() {
     super();
   }
 
-  createRenderRoot() {
-    return this;
+  static get styles() {
+    return [getGlobalStyle()]
   }
 
   signOut(event) {

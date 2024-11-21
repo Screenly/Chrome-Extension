@@ -6,19 +6,20 @@ import 'bootstrap';
 import '../scss/style.scss';
 import './components/sign-in-page.mjs';
 import './components/signed-in-page.mjs';
+import {getGlobalStyle} from './helpers.mjs';
 
 export class OptionsPage extends LitElement {
   static properties = {
     signedIn: {type: Boolean},
   };
 
+  static get styles() {
+    return [getGlobalStyle()];
+  }
+
   constructor() {
     super();
     this.signedIn = false;
-  }
-
-  createRenderRoot() {
-    return this;
   }
 
   signOut() {
