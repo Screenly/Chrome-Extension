@@ -113,6 +113,15 @@ export function getWebAsset(assetId, user) {
     )
 }
 
+export function getTeam(user) {
+    return callApi(
+        "GET",
+        "https://api.screenlyapp.com/api/v4.1/teams/",
+        null,
+        user.token
+    )
+}
+
 export function getAssetDashboardLink(assetId) {
     return `https://login.screenlyapp.com/login?next=/manage/assets/${assetId}`;
 }

@@ -5,6 +5,7 @@
 import {
     assert,
     getUser,
+    getTeam,
     hideElement,
     setButtonWaitState,
     showElement,
@@ -62,8 +63,21 @@ export function initOptions() {
 
     getUser().then((user) => {
         if (user.token) {
-            showPage(elements.signedInPage);
-            console.info(user);
+            getTeam(user)
+                .then((team) => {
+                    if (team.length > 0) {
+                        const teamNames = team.map((t) => `<li>${t.name}</li>`).join('');
+                        document.querySelector('.team-name')
+                            .innerHTML = `<ul>${teamNames}</ul>`;
+                    }
+
+                    showPage(elements.signedInPage);
+                })
+                .catch(() => {
+                    showPage(elements.signInPage);
+                    showElement(elements.signInError);
+                    browser.storage.sync.clear();
+                });
         } else {
             showPage(elements.signInPage);
         }
