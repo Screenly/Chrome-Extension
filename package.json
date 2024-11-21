@@ -38,6 +38,7 @@
   },
   "author": "Screenly, Inc.",
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "normalize-url": "^8.0.1"
   }
 }

@@ -5,7 +5,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import '../scss/style.scss';
 import 'bootstrap';
-import "../../lib/vendor/normalize-url.js";
+import normalizeUrl from 'normalize-url';
 
 export function assert(condition, msg=undefined) {
     if (!condition)
@@ -124,7 +124,7 @@ export class State {
 
     // Make a new URL equivalent to the given URL but in a normalized format.
     static normalizeUrl(url) {
-        return window.normalizeUrl(url, {
+        return normalizeUrl(url, {
             removeTrailingSlash: false,
             sortQueryParameters: false,
             stripWWW: false,
@@ -133,7 +133,7 @@ export class State {
 
     // Simplify a URL heavily, even if it slightly changes its meaning.
     static simplifyUrl(url) {
-        return window.normalizeUrl(url, {
+        return normalizeUrl(url, {
             removeTrailingSlash: true,
             sortQueryParameters: true,
             stripHash: true,
