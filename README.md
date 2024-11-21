@@ -31,7 +31,7 @@ $ docker compose up --build
 
 Now load the content of the `dist/` folder as an unpacked extension in Chrome. As you make changes to the code, the extension is automatically rebuilt.
 
-### :package: Distribute
+### Distribute
 
 ```bash
 $ VERSION=<EXTENSION_VERSION> ./bin/package_extension.sh
@@ -43,11 +43,11 @@ $ VERSION=<EXTENSION_VERSION> ./bin/package_extension.sh
 $ ./bin/run_tests.sh
 ```
 
-1. Build the extension in dev mode.
-2. Load the extension as an unpacked extension from the `dist` folder.
-3. Find the extension URL and then open `chrome-extension://extension-id/test/tests.html` in Chrome.
+* Build the extension in dev mode.
+* Load the extension as an unpacked extension from the `dist` folder.
+* Find the extension URL and then open `chrome-extension://extension-id/test/tests.html` in Chrome.
 
-## Release
+## :rocket: Release
 
 * Generate a new relase tag in `git`:
 
@@ -59,11 +59,11 @@ $ git tag
 $ git tag -a vX.Y.Z -m "tl;dr changelog."
 $ git push origin vX.Y.Z
 ```
-* Navigate to the [GitHub releases](https://github.com/Screenly/Chrome-Extension/releases) and create select 'Draft a new release'
-* Select the tag you just created above and provide a release title and description
-  * You can use `git diff v0.2.0..v0.3.0` to diff between the current and previous release to help you with the changelog
-* Go to the [CI Job](https://github.com/Screenly/Chrome-Extension/actions/workflows/build.yaml) and pull down the release `.zip` file for the release you created
-  * You can verify the `.zip` file you downloaded with the GitHub CLI by running `gh attestation verify path/to/release.zip --owner Screenly`
-* Navigate to [Chrome Web Store Developer Dashboard](https://chrome.google.com/u/1/webstore/devconsole/)
-* Select the right publisher account and upload the `.zip` file you downloaded before
+* Navigate to the [GitHub releases](https://github.com/Screenly/Chrome-Extension/releases) and create select 'Draft a new release'.
+* Select the tag you just created above and provide a release title and description.
+  * You can use `git diff v0.2.0..v0.3.0` to diff between the current and previous release to help you with the changelog.
+* Go to the [CI Job](https://github.com/Screenly/Chrome-Extension/actions/workflows/build.yaml) and pull down the release `.zip` file for the release you created.
+  * You can verify the `.zip` file you downloaded with the GitHub CLI by running `gh attestation verify path/to/release.zip --owner Screenly`.
+* Navigate to [Chrome Web Store Developer Dashboard](https://chrome.google.com/u/1/webstore/devconsole/).
+* Select the right publisher account and upload the `.zip` file you downloaded before.
 
