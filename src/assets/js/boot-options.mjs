@@ -8,6 +8,7 @@ import 'bootstrap';
 import '../scss/style.scss';
 import './components/sign-in-page.mjs';
 import './components/signed-in-page.mjs';
+
 import {getGlobalStyle} from './helpers.mjs';
 
 export class OptionsPage extends LitElement {
