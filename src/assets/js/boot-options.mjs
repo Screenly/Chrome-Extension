@@ -2,9 +2,6 @@
 
 import {html, LitElement} from 'lit-element';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap';
-
 import '../scss/style.scss';
 import './components/sign-in-page.mjs';
 import './components/signed-in-page.mjs';

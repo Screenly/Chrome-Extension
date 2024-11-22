@@ -1,7 +1,4 @@
-import {css, html, LitElement} from 'lit-element';
-
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap';
+import {html, LitElement} from 'lit-element';
 
 import '../scss/style.scss';
 import '../scss/sweetalert-icons.scss';
