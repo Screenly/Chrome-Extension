@@ -15,11 +15,13 @@
     </a>
 </p>
 
-<a href="https://chromewebstore.google.com/detail/save-to-screenly/kcoehkngnbhlmdcgcadliaadlmbjmcln?hl=en">
-    <p align="center">
-        <strong>Easily add content to your Screenly digital signage displays in a few clicks. :sparkles:</strong>
-    </p>
-</a>
+<p align="center">
+    <strong>Easily add content to your Screenly digital signage displays in a few clicks. :sparkles:</strong>
+</p>
+
+## :seedling: Install
+
+* Install the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/save-to-screenly/kcoehkngnbhlmdcgcadliaadlmbjmcln?hl=en).
 
 ## :computer: Develop
 
@@ -37,7 +39,7 @@ Now load the content of the `dist/` folder as an unpacked extension in Chrome. A
 $ VERSION=<EXTENSION_VERSION> ./bin/package_extension.sh
 ```
 
-## :test_tube: Unit testing
+## :test_tube: Run Unit Tests
 
 ```bash
 $ ./bin/run_tests.sh
