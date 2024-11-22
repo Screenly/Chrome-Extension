@@ -2,13 +2,45 @@ import {html, LitElement} from 'lit-element';
 
 import {getPopupStyle} from '../helpers.mjs';
 
+class SaveAuthenticationWarning extends LitElement {
+  static get styles() {
+    return [getPopupStyle()];
+  }
+
+  render() {
+    return html`
+      <div class='mt-2' id='with-auth-check-info'>
+        <div class='alert alert-warning'>
+          <p class='mb-0'>
+            Warning: a determined attacker with physical access to your digital sign could extract these saved credentials for
+            <span class='break-anywhere text-monospace' id='hostname'>
+              example.com
+            </span>
+            and gain access to your account.
+          </p>
+        </div>
+      </div>
+    `;
+  }
+}
+customElements.define('save-authentication-warning', SaveAuthenticationWarning);
+
 export class ProposalPage extends LitElement {
   constructor() {
     super();
+    this.withAuthentication = false;
   }
 
   static get styles() {
     return [getPopupStyle()];
+  }
+
+  static properties = {
+    withAuthentication: {type: Boolean},
+  }
+
+  handleAuthenticationCheckBox(event) {
+    this.withAuthentication = event.target.checked;
   }
 
   render() {
@@ -23,20 +55,19 @@ export class ProposalPage extends LitElement {
           </section>
           <section>
             <div class='form-check'>
-              <input class='form-check-input' id='with-auth-check' type='checkbox'>
+              <input
+                class='form-check-input'
+                id='with-auth-check'
+                type='checkbox'
+                @change=${this.handleAuthenticationCheckBox}
+              >
               <label class='form-check-label' for='with-auth-check'>Save Authentication</label>
             </div>
-            <div class='mt-2' id='with-auth-check-info'>
-              <div class='alert alert-warning'>
-                <p class='mb-0'>
-                  Warning: a determined attacker with physical access to your digital sign could extract these saved credentials for
-                  <span class='break-anywhere text-monospace' id='hostname'>
-                    example.com
-                  </span>
-                  and gain access to your account.
-                </p>
-              </div>
-            </div>
+
+            <save-authentication-warning
+              ?hidden=${!this.withAuthentication}>
+            </save-authentication-warning>
+
             <div class='font-italic mb-0 mt-2 text-muted'>
               <p class='mb-0'>
                 This option saves the web page and <strong>your current session credentials</strong> to your Screenly account. Note that this option is not compatible with all web pages.
@@ -45,7 +76,11 @@ export class ProposalPage extends LitElement {
           </section>
           <section id='verification' hidden>
             <div class='form-check'>
-              <input class='form-check-input' id='no-verification-check' type='checkbox'>
+              <input
+                class='form-check-input'
+                id='no-verification-check'
+                type='checkbox'
+              >
               <label class='form-check-label' for='no-verification-check'>Bypass Verification</label>
             </div>
           </section>
