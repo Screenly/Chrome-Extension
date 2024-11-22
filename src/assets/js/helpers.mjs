@@ -18,3 +18,36 @@ export function getGlobalStyle() {
 
   return globalStyle;
 }
+
+export function getPopupStyle() {
+  return [
+    getGlobalStyle(),
+    css`
+      :host {
+        .page {
+          width: 350px;
+          min-height: 300px;
+          display: grid;
+        }
+
+        section {
+          padding: 20px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          font-size: 0.8rem;
+          width: 100%;
+          input {
+            font-size: 1rem;
+          }
+        }
+
+        label {
+          font-size: 1rem;
+        }
+
+        h5 {
+          margin-bottom: 0;
+        }
+      }
+    `
+  ];
+}
