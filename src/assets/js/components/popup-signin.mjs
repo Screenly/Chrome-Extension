@@ -11,6 +11,10 @@ export class PopupSignIn extends LitElement {
     return [getPopupStyle()];
   }
 
+  handleSignIn() {
+    browser.runtime.openOptionsPage();
+  }
+
   render() {
     return html`
       <div class='page' id='sign-in-page'>
@@ -25,7 +29,13 @@ export class PopupSignIn extends LitElement {
             </div>
           </section>
           <section>
-            <button class='btn btn-primary w-100' id='open-sign-in'>Sign In</button>
+            <button
+              class='btn btn-primary w-100'
+              id='open-sign-in'
+              @click=${this.handleSignIn}
+            >
+              Sign In
+            </button>
           </section>
         </div>
       </div>
