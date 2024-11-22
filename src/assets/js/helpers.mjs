@@ -16,7 +16,30 @@ export function getGlobalStyle() {
     ]
   );
 
-  return globalStyle;
+  return [
+    globalStyle,
+    // The elements with the `spinner-border` class doesn't show up,
+    // so we need to include the following styles.
+    css`
+      @keyframes spinner-border {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .spinner-border {
+        display: inline-block;
+        width: 2rem;
+        height: 2rem;
+        vertical-align: text-bottom;
+        border: .25em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: spinner-border .75s linear infinite;
+        animation: spinner-border 1s linear infinite;
+      }
+    `
+  ];
 }
 
 export function getPopupStyle() {
