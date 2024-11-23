@@ -56,10 +56,10 @@ export class PopupPage extends LitElement {
       <working-page ?hidden=${!this.isLoading}>
       </working-page>
 
-      <proposal-page hidden ?hidden=${!this.showProposal}>
+      <proposal-page ?hidden=${!this.showProposal}>
       </proposal-page>
 
-      <success-page hidden ?hidden=${!this.showSuccess}>
+      <success-page ?hidden=${!this.showSuccess}>
       </success-page>
     `;
   }
