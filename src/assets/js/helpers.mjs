@@ -38,6 +38,12 @@ export function getGlobalStyle() {
         -webkit-animation: spinner-border .75s linear infinite;
         animation: spinner-border 1s linear infinite;
       }
+
+      .spinner-border-sm {
+        width: 1rem;
+        height: 1rem;
+        border-width: 0.2em;
+      }
     `
   ];
 }

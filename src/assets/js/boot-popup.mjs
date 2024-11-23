@@ -1,3 +1,5 @@
+/* global browser */
+
 import {html, LitElement} from 'lit-element';
 
 import '../scss/style.scss';
@@ -25,16 +27,17 @@ export class PopupPage extends LitElement {
 
     try {
       const {token} = await browser.storage.sync.get(['token']);
-      if (token) {
-        this.showProposal = true;
-      } else {
+      if (!token) {
         this.showSignIn = true;
       }
     } catch {
       this.showSignIn = true;
     }
 
-    this.isLoading = false;
+    if (this.showSignIn) {
+      this.isLoading = false;
+      return;
+    }
   }
 
   static get styles() {
@@ -46,7 +49,23 @@ export class PopupPage extends LitElement {
     showSignIn: {type: Boolean},
     showProposal: {type: Boolean},
     showSuccess: {type: Boolean},
+    assetDashboardLink: {type: String},
   };
+
+  showProposalPage() {
+    this.showProposal = true;
+    this.showSignIn = false;
+    this.isLoading = false;
+  }
+
+  showSuccessPage(event) {
+    this.showSuccess = true;
+    this.showProposal = false;
+    this.showSignIn = false
+    this.isLoading = false;
+
+    this.assetDashboardLink = event.detail.assetDashboardLink;
+  }
 
   render() {
     return html`
@@ -56,10 +75,17 @@ export class PopupPage extends LitElement {
       <working-page ?hidden=${!this.isLoading}>
       </working-page>
 
-      <proposal-page ?hidden=${!this.showProposal}>
+      <proposal-page
+        ?hidden=${!this.showProposal}
+        @proposal-success=${this.showSuccessPage}
+        @proposal-ready=${this.showProposalPage}
+      >
       </proposal-page>
 
-      <success-page ?hidden=${!this.showSuccess}>
+      <success-page
+        ?hidden=${!this.showSuccess}
+        .assetDashboardLink=${this.assetDashboardLink}
+      >
       </success-page>
     `;
   }

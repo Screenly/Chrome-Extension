@@ -1,46 +1,17 @@
-import {html, LitElement} from 'lit-element';
+/* global browser */
 
+import {html, LitElement} from 'lit-element';
 import {getPopupStyle} from '../helpers.mjs';
 import {
   getUser,
   getWebAsset,
+  createWebAsset,
+  updateWebAsset,
+  getAssetDashboardLink,
   State,
 } from '../main.mjs';
-
-class SaveAuthenticationWarning extends LitElement {
-  constructor() {
-    super();
-    this.hostname = '';
-  }
-
-  static get styles() {
-    return [getPopupStyle()];
-  }
-
-  static properties = {
-    hostname: {type: String},
-  };
-
-  render() {
-    return html`
-      <div class='mt-2' id='with-auth-check-info'>
-        <div class='alert alert-warning'>
-          <p class='mb-0'>
-            Warning: a determined attacker with physical access to your digital sign could extract these saved credentials for
-            <span
-              class='break-anywhere text-monospace'
-              id='hostname'
-            >
-              ${this.hostname}
-            </span>
-            and gain access to your account.
-          </p>
-        </div>
-      </div>
-    `;
-  }
-}
-customElements.define('save-authentication-warning', SaveAuthenticationWarning);
+import './save-authentication-warning.mjs';
+import * as cookiejs from "../../../lib/vendor/cookie.mjs";
 
 export class ProposalPage extends LitElement {
   constructor() {
@@ -55,6 +26,7 @@ export class ProposalPage extends LitElement {
       show: false,
       message: ''
     };
+    this.bypassVerification = false;
 
     this.prepareToAddToScreenly();
   }
@@ -65,6 +37,7 @@ export class ProposalPage extends LitElement {
     assetHostname: {type: String},
     buttonMode: {type: String},
     error: {type: Object},
+    bypassVerification: {type: Boolean},
   }
 
   updateProposal(newProposal) {
@@ -124,6 +97,8 @@ export class ProposalPage extends LitElement {
       url: State.normalizeUrl(url),
       cookieJar
     });
+
+    this.dispatchEvent(new CustomEvent('proposal-ready'));
   }
 
   async prepareToAddToScreenly() {
@@ -131,7 +106,6 @@ export class ProposalPage extends LitElement {
     const user = await getUser();
 
     if (!user.token) {
-      showPage(elements.signInPage);
       return;
     }
 
@@ -200,6 +174,102 @@ export class ProposalPage extends LitElement {
     this.withAuthentication = event.target.checked;
   }
 
+  handleSubmission(event) {
+    event.preventDefault();
+
+    if (this.buttonMode === 'loading') {
+      return;
+    }
+
+    this.buttonMode = 'loading';
+    let headers = undefined;
+
+    if (this.withAuthentication && this.currentProposal.cookieJar) {
+      headers = {
+        'Cookie': this.currentProposal.cookieJar.map(
+          cookie => cookiejs.serialize(cookie.name, cookie.value)
+        ).join("; ")
+      };
+    }
+
+    const state = this.currentProposal.state;
+    let action = undefined;
+
+    if (!state) {
+      action = createWebAsset(
+        this.currentProposal.user,
+        this.currentProposal.url,
+        this.currentProposal.title,
+        headers,
+        this.bypassVerification
+      );
+    } else {
+      action = updateWebAsset(
+        state.assetId,
+        this.currentProposal.user,
+        this.currentProposal.url,
+        this.currentProposal.title,
+        headers,
+        this.bypassVerification
+      );
+    }
+
+    action
+      .then((result) => {
+        console.debug(result);
+
+        if (result.length === 0) {
+          throw "No asset data returned";
+        }
+
+        State.setSavedAssetState(
+          this.currentProposal.url,
+          result[0].id,
+          this.withAuthentication,
+          this.bypassVerification
+        );
+
+        this.dispatchEvent(new CustomEvent('proposal-success', {
+          detail: {
+            assetDashboardLink: getAssetDashboardLink(result[0].id)
+          }
+        }));
+      })
+      .catch((error) => {
+        if (error.statusCode === 401) {
+          this.error = {
+            show: true,
+            message: 'Screenly authentication failed. Try signing out and back in again.'
+          };
+          return;
+        }
+
+        error.json()
+          .then((errorJson) => {
+            console.error("Failed to add/update asset:", error);
+            console.error("Response: ", errorJson);
+            if (errorJson.type[0] === "AssetUnreachableError") {
+              this.bypassVerification = true;
+              this.error = {
+                show: true,
+                message: "Screenly couldn't reach this web page. To save it anyhow, use the Bypass Verification option."
+              };
+            } else {
+              throw "Unknown error";
+            }
+          }).catch(() => {
+            this.error = {
+              show: true,
+              message: (
+                state ?
+                  "Failed to update asset." :
+                  "Failed to save web page."
+              )
+            };
+          });
+      });
+  }
+
   render() {
     return html`
       <div class='page' id='proposal-page'>
@@ -238,27 +308,35 @@ export class ProposalPage extends LitElement {
             >
             </save-authentication-warning>
 
-            <div class='font-italic mb-0 mt-2 text-muted'>
-              <p class='mb-0'>
-                This option saves the web page and <strong>your current session
-                credentials</strong> to your Screenly account. Note that this
-                option is not compatible with all web pages.
-              </p>
-            </div>
+            <save-authentication-help></save-authentication-help>
           </section>
-          <section id='verification' hidden>
+          <section id='verification' ?hidden=${!this.bypassVerification}>
             <div class='form-check'>
               <input
                 class='form-check-input'
                 id='no-verification-check'
                 type='checkbox'
+                .checked=${this.bypassVerification}
               >
-              <label class='form-check-label' for='no-verification-check'>Bypass Verification</label>
+              <label
+                class='form-check-label'
+                for='no-verification-check'
+              >
+                Bypass Verification
+              </label>
             </div>
           </section>
           <section>
-            <button class='btn btn-primary w-100' id='add-it-submit' type='submit'>
-              <span class='spinner spinner-border spinner-border-sm' ariaHidden='true' hidden='true'></span>
+            <button
+              class='btn btn-primary w-100'
+              id='add-it-submit'
+              type='submit'
+              @click=${this.handleSubmission}
+            >
+              <span
+                class='spinner-border spinner-border-sm'
+                ?hidden=${this.buttonMode !== 'loading'}
+              ></span>
               <span
                 class='add label'
                 ?hidden=${this.buttonMode !== 'add'}

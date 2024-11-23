@@ -1,3 +1,5 @@
+/* global browser */
+
 import {html, LitElement} from 'lit-element';
 
 import {getPopupStyle} from '../helpers.mjs';
