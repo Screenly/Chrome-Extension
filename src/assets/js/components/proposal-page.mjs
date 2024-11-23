@@ -45,7 +45,7 @@ export class ProposalPage extends LitElement {
 
   render() {
     return html`
-      <div class='page' id='proposal-page>
+      <div class='page' id='proposal-page'>
         <form id='add-it'>
           <section>
             <h5 id='title'></h5>
@@ -61,7 +61,12 @@ export class ProposalPage extends LitElement {
                 type='checkbox'
                 @change=${this.handleAuthenticationCheckBox}
               >
-              <label class='form-check-label' for='with-auth-check'>Save Authentication</label>
+              <label
+                class='form-check-label'
+                for='with-auth-check'
+              >
+              Save Authentication
+              </label>
             </div>
 
             <save-authentication-warning
@@ -70,7 +75,9 @@ export class ProposalPage extends LitElement {
 
             <div class='font-italic mb-0 mt-2 text-muted'>
               <p class='mb-0'>
-                This option saves the web page and <strong>your current session credentials</strong> to your Screenly account. Note that this option is not compatible with all web pages.
+                This option saves the web page and <strong>your current session
+                credentials</strong> to your Screenly account. Note that this
+                option is not compatible with all web pages.
               </p>
             </div>
           </section>
