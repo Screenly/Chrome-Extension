@@ -19,7 +19,8 @@ class SignInError extends LitElement {
         class='alert alert-danger mb-0 mt-3'
         id='sign-in-error'
       >
-        Unable to sign in. Check your credentials and internet connectivity, then try again.
+        Unable to sign in. Check your credentials and internet connectivity,
+        then try again.
       </div>
     `;
   }
@@ -32,11 +33,13 @@ export class SignIn extends LitElement {
     super();
     this.token = '';
     this.showSignInError = false;
+    this.isLoading = false;
   }
 
   static properties = {
     token: {type: String},
     showSignInError: {type: Boolean},
+    isLoading: {type: Boolean},
   };
 
   static get styles() {
@@ -50,6 +53,8 @@ export class SignIn extends LitElement {
   async signIn(event) {
     event.preventDefault();
 
+    this.isLoading = true;
+
     try {
       await callApi(
         'GET',
@@ -62,14 +67,23 @@ export class SignIn extends LitElement {
       this.showSignInError = false;
     } catch {
       this.showSignInError = true;
+    }
+
+    this.isLoading = false;
+
+    if (this.showSignInError) {
       return;
     }
 
     this.dispatchEvent(new CustomEvent('sign-in'));
   }
 
+  getSignUpLink() {
+    return `https://login.screenlyapp.com/sign-up?next=${window.location.href}`
+  }
+
+
   render() {
-    // TODO: Add sign up link in the anchor tag.
     return html`
       <div class='page' id='sign-in-page'>
         <form class='sign-in'>
@@ -89,8 +103,15 @@ export class SignIn extends LitElement {
             type='submit'
             @click=${this.signIn}
           >
-            <span class='spinner spinner-border spinner-border-sm' ariaHidden='true' hidden='true'></span>
-            <span class='label'>Sign In</span>
+            ${
+              this.isLoading
+                ? html`
+                    <span
+                      class='spinner spinner-border spinner-border-sm'>
+                    </span>
+                  `
+                : html`<span class='label'>Sign In</span>`
+            }
           </button>
           <sign-in-error ?hidden=${!this.showSignInError}>
           </sign-in-error>
@@ -98,7 +119,10 @@ export class SignIn extends LitElement {
         <section class='mt-2'>
           <div class='small text-center'>
             Need an account?
-            <a id='sign-up-link'>
+            <a
+              id='sign-up-link'
+              href=${this.getSignUpLink()}
+            >
               Sign Up.
             </a>
           </div>
