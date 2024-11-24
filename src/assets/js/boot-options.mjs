@@ -1,5 +1,13 @@
-'use strict';
+import ReactDOM from 'react-dom/client';
+import React from 'react';
 
-import {initOptions} from "./options.mjs";
+const Options = () => {
+  return (
+    <div>
+      <h1>React App</h1>
+    </div>
+  );
+}
 
-initOptions();
+const root = ReactDOM.createRoot(document.getElementById("app"));
+root.render(<Options />);
