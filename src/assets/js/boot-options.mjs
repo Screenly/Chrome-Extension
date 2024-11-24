@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom/client';
 import React from 'react';
-import { useState, useEffect } from 'react';
 
 import 'bootstrap/scss/bootstrap.scss';
 import '../scss/style.scss';
@@ -8,19 +7,14 @@ import '../scss/style.scss';
 import { SignIn } from './components/sign-in.jsx';
 import { SignedIn } from './components/signed-in.jsx';
 
-const Options = () => {
-  const [signedIn, setSignedIn] = useState(false);
+import { store } from './store.js';
+import {
+  Provider,
+  useSelector,
+} from 'react-redux';
 
-  const getTokenFromStorage = async () => {
-    try {
-      const {token} = await browser.storage.sync.get(['token']);
-      if (token) {
-        setSignedIn(true);
-      }
-    } catch {
-      setSignedIn(false);
-    }
-  };
+const Options = () => {
+  const signedIn = useSelector((state) => state.auth.signedIn);
 
   return (
     <div className="container">
@@ -40,4 +34,8 @@ const Options = () => {
 }
 
 const root = ReactDOM.createRoot(document.getElementById("app"));
-root.render(<Options />);
+root.render(
+  <Provider store={store}>
+    <Options />
+  </Provider>
+);

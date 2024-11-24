@@ -2,6 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 
 import { callApi } from '../main.mjs';
+import {
+  useDispatch,
+} from 'react-redux';
+import { signIn } from '../features/auth/authSlice.js';
 
 const SignInError = () => {
   return (
@@ -14,30 +18,37 @@ const SignInError = () => {
 export const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showSignInError, setShowSignInError] = useState(false);
+  const [token, setToken] = useState('');
+  const dispatch = useDispatch();
 
-  const signIn = async (event) => {
+  const handleSignIn = async (event) => {
     event.preventDefault();
     setIsLoading(true);
 
     try {
+      console.log(`sign-in - token: ${token}`);
+
       await callApi(
         'GET',
         'https://api.screenlyapp.com/api/v4/assets/',
         null,
-        this.token
+        token
       );
 
-      await browser.storage.sync.set({token: this.token});
+      console.log('sign-in - #1');
+
+      await browser.storage.sync.set({ token: token });
+      console.log('sign-in - #2');
       setShowSignInError(false);
-    } catch {
+    } catch (error) {
       setShowSignInError(true);
+      return;
+    } finally {
+      setIsLoading(false);
     }
 
     setIsLoading(false);
-
-    if (showSignInError) {
-      return;
-    }
+    dispatch(signIn());
   }
 
   return (
@@ -51,13 +62,14 @@ export const SignIn = () => {
                 id='token'
                 type='password'
                 placeholder='Token'
+                onChange={(event) => setToken(event.target.value)}
               />
             </div>
             <button
               className='btn btn-primary w-100'
               id='sign-in-submit'
               type='submit'
-              onClick={signIn}
+              onClick={handleSignIn}
             >
               {
                 isLoading
