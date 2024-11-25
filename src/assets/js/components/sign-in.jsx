@@ -2,9 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 import { callApi } from '../main.mjs';
-import {
-  useDispatch,
-} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signIn } from '../features/auth/authSlice.js';
 
 const SignInError = () => {
@@ -21,13 +19,17 @@ export const SignIn = () => {
   const [token, setToken] = useState('');
   const dispatch = useDispatch();
 
+  const getSignUpLink = () => {
+    const baseUrl = 'https://login.screenlyapp.com/sign-up';
+    const queryParams = `next=${window.location.href}`;
+    return `${baseUrl}?${queryParams}`;
+  };
+
   const handleSignIn = async (event) => {
     event.preventDefault();
     setIsLoading(true);
 
     try {
-      console.log(`sign-in - token: ${token}`);
-
       await callApi(
         'GET',
         'https://api.screenlyapp.com/api/v4/assets/',
@@ -35,10 +37,8 @@ export const SignIn = () => {
         token
       );
 
-      console.log('sign-in - #1');
-
       await browser.storage.sync.set({ token: token });
-      console.log('sign-in - #2');
+
       setShowSignInError(false);
     } catch (error) {
       setShowSignInError(true);
@@ -93,7 +93,9 @@ export const SignIn = () => {
               &nbsp;
               <a
                 id='sign-up-link'
-                href='#'
+                href={getSignUpLink()}
+                target='_blank'
+                rel='noreferrer'
               >
                 Sign Up
               </a>

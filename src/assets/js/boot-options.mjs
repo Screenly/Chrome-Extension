@@ -1,5 +1,13 @@
+/* global browser */
+
 import ReactDOM from 'react-dom/client';
 import React from 'react';
+import { useEffect } from 'react';
+import {
+  Provider,
+  useSelector,
+  useDispatch,
+} from 'react-redux';
 
 import 'bootstrap/scss/bootstrap.scss';
 import '../scss/style.scss';
@@ -8,13 +16,19 @@ import { SignIn } from './components/sign-in.jsx';
 import { SignedIn } from './components/signed-in.jsx';
 
 import { store } from './store.js';
-import {
-  Provider,
-  useSelector,
-} from 'react-redux';
+import { signIn } from './features/auth/authSlice.js';
 
 const Options = () => {
   const signedIn = useSelector((state) => state.auth.signedIn);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    browser.storage.sync.get('token').then((result) => {
+      if (result.token) {
+        dispatch(signIn());
+      }
+    });
+  }, []);
 
   return (
     <div className="container">
