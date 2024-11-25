@@ -12,8 +12,8 @@ import {
 import 'bootstrap/scss/bootstrap.scss';
 import '../scss/style.scss';
 
-import { SignIn } from './components/sign-in.jsx';
-import { SignedIn } from './components/signed-in.jsx';
+import { SignIn } from './components/options/sign-in.jsx';
+import { SignedIn } from './components/options/signed-in.jsx';
 
 import { store } from './store.js';
 import { signIn } from './features/auth/authSlice.js';

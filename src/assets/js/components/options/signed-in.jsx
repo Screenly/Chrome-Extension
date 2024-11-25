@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { signOut } from '../features/auth/authSlice.js';
+import { signOut } from '../../features/auth/authSlice.js';
 
 export const SignedIn = () => {
   const dispatch = useDispatch();

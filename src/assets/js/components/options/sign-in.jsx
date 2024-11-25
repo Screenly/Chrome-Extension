@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 
-import { callApi } from '../main.mjs';
+import { callApi } from '../../main.mjs';
 import { useDispatch } from 'react-redux';
-import { signIn } from '../features/auth/authSlice.js';
+import { signIn } from '../../features/auth/authSlice.js';
 
 const SignInError = () => {
   return (
