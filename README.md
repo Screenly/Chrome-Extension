@@ -16,13 +16,13 @@
 </p>
 
 <p align="center">
-    <strong>Easily add content to your Screenly digital signage displays in a few clicks. :sparkles:</strong>
+    <img src="/docs/images/banner.svg" alt="Extension Banner" width="90%">
 </p>
 
 <br>
 
 <p align="center">
-    <img src="/docs/images/banner.svg" alt="Extension Banner" width="85%">
+    <strong>Easily add content to your Screenly digital signage displays in a few clicks. :sparkles:</strong>
 </p>
 
 <br>
