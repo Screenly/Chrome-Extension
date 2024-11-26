@@ -15,12 +15,12 @@
     </a>
 </p>
 
-<p align="right">
+<p align="center">
     <strong>Easily add content to your Screenly digital signage displays in a few clicks. :sparkles:</strong>
 </p>
 
-<p align="left">
-    <img src="/docs/images/banner.svg" alt="Extension Banner">
+<p align="center">
+    <img src="/docs/images/banner.svg" alt="Extension Banner" width="100%" />
 </p>
 
 ## :seedling: Install
