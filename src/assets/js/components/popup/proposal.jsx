@@ -25,8 +25,7 @@ export const Proposal = (props) => {
   });
   const [bypassVerification, setBypassVerification] = useState(false);
   const [saveAuthentication, setSaveAuthentication] = useState(false);
-
-  let currentProposal = null;
+  const [proposal, setProposal] = useState(null);
 
   const updateProposal = (newProposal) => {
     setError((prev) => {
@@ -36,7 +35,7 @@ export const Proposal = (props) => {
       };
     });
 
-    currentProposal = newProposal;
+    let currentProposal = newProposal;
     const url = currentProposal.url;
 
     return State.getSavedAssetState(url)
@@ -65,10 +64,12 @@ export const Proposal = (props) => {
         setAssetUrl(currentProposal.url);
         setAssetHostname(new URL(url).hostname);
 
+        setProposal(currentProposal);
+
         if (state) {
           console.info(`URL ${url} associated with asset ID ${state.assetId}`);
 
-          withAuthentication = state.withCookies;
+          setSaveAuthentication(state.withCookies);
           setButtonState('update');
         } else {
           setButtonState('add');
@@ -165,26 +166,107 @@ export const Proposal = (props) => {
     prepareToAddToScreenly();
   }, []);
 
-  const getButtonContent = () => {
-    switch (buttonState) {
-      case 'add':
-        return (
-          <span className='add label'>
-            Add to Screenly
-          </span>
-        );
-      case 'loading':
-        return (
-          <span className='spinner-border spinner-border-sm'>
-          </span>
-        );
-      case 'update':
-        return (
-          <span className='label update'>
-            Update Asset
-          </span>
-        );
+  const handleSubmission = async(event) => {
+    event.preventDefault();
+
+    let currentProposal = proposal;
+
+    if (buttonState === 'loading') {
+      return;
     }
+
+    setButtonState('loading');
+    let headers = undefined;
+
+    if (saveAuthentication && currentProposal.cookieJar) {
+      headers = {
+        'Cookie': currentProposal.cookieJar.map(
+          cookie => cookiejs.serialize(cookie.name, cookie.value)
+        ).join("; ")
+      };
+    }
+
+    const state = currentProposal.state;
+    let action = undefined;
+
+    if (!state) {
+      action = createWebAsset(
+        currentProposal.user,
+        currentProposal.url,
+        currentProposal.title,
+        headers,
+        bypassVerification
+      );
+    } else {
+      action = updateWebAsset(
+        state.assetId,
+        currentProposal.user,
+        currentProposal.url,
+        currentProposal.title,
+        headers,
+        bypassVerification
+      );
+    }
+
+    action
+      .then((result) => {
+        console.debug(result);
+
+        if (result.length === 0) {
+          throw "No asset data returned";
+        }
+
+        State.setSavedAssetState(
+          currentProposal.url,
+          result[0].id,
+          saveAuthentication,
+          bypassVerification
+        );
+
+        setButtonState(state ? 'update' : 'add');
+      })
+      .catch((error) => {
+        if (error.statusCode === 401) {
+          setError((prev) => {
+            return {
+              ...prev,
+              show: true,
+              message: 'Screenly authentication failed. Try signing out and back in again.'
+            };
+          });
+          return;
+        }
+
+        error.json()
+          .then((errorJson) => {
+            console.error("Failed to add/update asset:", error);
+            console.error("Response: ", errorJson);
+            if (errorJson.type[0] === "AssetUnreachableError") {
+              bypassVerification = true;
+              setError((prev) => {
+                return {
+                  ...prev,
+                  show: true,
+                  message: "Screenly couldn't reach this web page. To save it anyhow, use the Bypass Verification option."
+                };
+              });
+            } else {
+              throw "Unknown error";
+            }
+          }).catch(() => {
+            setError((prev) => {
+              return {
+                ...prev,
+                show: true,
+                message: (
+                  state ?
+                    "Failed to update asset." :
+                    "Failed to save web page."
+                )
+              };
+            });
+          });
+      });
   };
 
   return (
@@ -243,8 +325,27 @@ export const Proposal = (props) => {
               className='btn btn-primary w-100'
               id='add-it-submit'
               type='submit'
+              onClick={handleSubmission}
             >
-              {getButtonContent()}
+              <span
+                className='add label'
+                hidden={buttonState !== 'add'}
+              >
+                Add to Screenly
+              </span>
+
+              <span
+                className='spinner-border spinner-border-sm'
+                hidden={buttonState !== 'loading'}
+              >
+              </span>
+
+              <span
+                className='label update'
+                hidden={buttonState !== 'update'}
+              >
+                Update Asset
+              </span>
             </button>
             <div
               className='alert alert-danger mb-0 mt-3'
