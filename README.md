@@ -15,11 +15,11 @@
     </a>
 </p>
 
-<p align="center">
+<p align="right">
     <strong>Easily add content to your Screenly digital signage displays in a few clicks. :sparkles:</strong>
 </p>
 
-<p align="center">
+<p align="left">
     <img src="/docs/images/banner.svg" alt="Extension Banner">
 </p>
 
