@@ -10,6 +10,7 @@ import '../scss/sweetalert-icons.scss';
 import { PopupSignIn } from './components/popup/sign-in.jsx';
 import { PopupLoading } from './components/popup/loading.jsx';
 import { Success } from './components/popup/success.jsx';
+import { Proposal } from './components/popup/proposal.jsx';
 
 import { store } from './store.js';
 
@@ -23,7 +24,8 @@ const Popup = () => {
     browser.storage.sync.get('token').then((result) => {
       if (result.token) {
         setShowSignIn(false);
-        setIsLoading(true);
+        setIsLoading(false);
+        setShowProposal(true);
       }
     });
   }, []);
@@ -32,7 +34,7 @@ const Popup = () => {
     <>
       {showSignIn && <PopupSignIn />}
       {isLoading && <PopupLoading />}
-      {showProposal && <PopupLoading />}
+      {showProposal && <Proposal />}
       {showSuccess && <Success />}
     </>
   );
