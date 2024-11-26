@@ -19,9 +19,13 @@
     <strong>Easily add content to your Screenly digital signage displays in a few clicks. :sparkles:</strong>
 </p>
 
+<br>
+
 <p align="center">
-    <img src="/docs/images/banner.svg" alt="Extension Banner" width="90%" />
+    <img src="/docs/images/banner.svg" alt="Extension Banner" width="80%">
 </p>
+
+<br>
 
 ## :seedling: Install
 
