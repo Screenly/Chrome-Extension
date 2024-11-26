@@ -1,22 +1,21 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { SaveAuthWarning } from './save-auth-warning.jsx';
 import { SaveAuthHelp } from './save-auth-help.jsx';
 
 import * as cookiejs from '../../../../lib/vendor/cookie.mjs';
 import {
+  getAssetDashboardLink,
   getUser,
   getWebAsset,
   createWebAsset,
   updateWebAsset,
-  getAssetDashboardLink,
   State,
 } from '../../main.mjs';
 import {
-  setLoading,
-  setShowSignIn,
+  setAssetDashboardLink,
   setShowProposal,
   setShowSuccess,
 } from '../../features/popup/popupSlice.js';
@@ -240,6 +239,7 @@ export const Proposal = (props) => {
         setButtonState(state ? 'update' : 'add');
 
         dispatch(setShowSuccess(true));
+        dispatch(setAssetDashboardLink(getAssetDashboardLink(result[0].id)));
         dispatch(setShowProposal(false));
       })
       .catch((error) => {
@@ -259,7 +259,7 @@ export const Proposal = (props) => {
             console.error("Failed to add/update asset:", error);
             console.error("Response: ", errorJson);
             if (errorJson.type[0] === "AssetUnreachableError") {
-              bypassVerification = true;
+              setBypassVerification(true);
               setError((prev) => {
                 return {
                   ...prev,

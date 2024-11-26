@@ -7,6 +7,7 @@ const popupSlice = createSlice({
     showSignIn: true,
     showProposal: false,
     showSuccess: false,
+    assetDashboardLink: '',
   },
   reducers: {
     setLoading: (state, action) => {
@@ -21,6 +22,9 @@ const popupSlice = createSlice({
     setShowSuccess: (state, action) => {
       state.showSuccess = action.payload;
     },
+    setAssetDashboardLink: (state, action) => {
+      state.assetDashboardLink = action.payload;
+    },
   },
 });
 
@@ -29,5 +33,6 @@ export const {
   setShowSignIn,
   setShowProposal,
   setShowSuccess,
+  setAssetDashboardLink,
 } = popupSlice.actions;
 export default popupSlice.reducer;
