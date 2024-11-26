@@ -21,7 +21,7 @@
 
 ## :seedling: Install
 
-* Install the extension from the [Chrome Web Store](https://chromewebstore.google.com/detail/save-to-screenly/peilmclagebmlfdookdpjfhgemljhkel).
+* Install the extension from the [Chrome Web Store](https://chromewebstore.google.com/detail/save-to-screenly/kcoehkngnbhlmdcgcadliaadlmbjmcln).
 
 ## :computer: Develop
 
