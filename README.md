@@ -1,3 +1,5 @@
+<br>
+
 <p align="center">
     <img src="/docs/images/banner.svg" alt="Extension Banner" width="90%">
 </p>
