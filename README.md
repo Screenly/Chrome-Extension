@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-    <img src="/docs/images/banner.svg" alt="Extension Banner" width="100%" />
+    <img src="/docs/images/banner.svg" alt="Extension Banner" width="95%" />
 </p>
 
 ## :seedling: Install
