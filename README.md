@@ -22,7 +22,7 @@
 <br>
 
 <p align="center">
-    <img src="/docs/images/banner.svg" alt="Extension Banner" width="80%">
+    <img src="/docs/images/banner.svg" alt="Extension Banner" width="85%">
 </p>
 
 <br>
