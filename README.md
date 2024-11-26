@@ -15,6 +15,8 @@
     </a>
 </p>
 
+<br>
+
 <p align="center">
     <img src="/docs/images/banner.svg" alt="Extension Banner" width="90%">
 </p>
@@ -24,8 +26,6 @@
 <p align="center">
     <strong>Easily add content to your Screenly digital signage displays in a few clicks. :sparkles:</strong>
 </p>
-
-<br>
 
 ## :seedling: Install
 
