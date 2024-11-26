@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { SaveAuthWarning } from './save-auth-warning.jsx';
 import { SaveAuthHelp } from './save-auth-help.jsx';
@@ -13,8 +14,17 @@ import {
   getAssetDashboardLink,
   State,
 } from '../../main.mjs';
+import {
+  setLoading,
+  setShowSignIn,
+  setShowProposal,
+  setShowSuccess,
+} from '../../features/popup/popupSlice.js';
+import { PopupLoading } from './loading.jsx';
 
 export const Proposal = (props) => {
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const [assetTitle, setAssetTitle] = useState('');
   const [assetUrl, setAssetUrl] = useState('');
   const [assetHostname, setAssetHostname] = useState('');
@@ -163,7 +173,11 @@ export const Proposal = (props) => {
   };
 
   useEffect(() => {
-    prepareToAddToScreenly();
+    setIsLoading(true);
+    prepareToAddToScreenly()
+      .then(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   const handleSubmission = async(event) => {
@@ -224,6 +238,9 @@ export const Proposal = (props) => {
         );
 
         setButtonState(state ? 'update' : 'add');
+
+        dispatch(setShowSuccess(true));
+        dispatch(setShowProposal(false));
       })
       .catch((error) => {
         if (error.statusCode === 401) {
@@ -268,6 +285,10 @@ export const Proposal = (props) => {
           });
       });
   };
+
+  if (isLoading) {
+    return <PopupLoading />;
+  }
 
   return (
     <>

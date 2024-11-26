@@ -1,7 +1,11 @@
 import ReactDOM from 'react-dom/client';
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Provider } from 'react-redux';
+import {
+  Provider,
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 
 import 'bootstrap/scss/bootstrap.scss';
 import '../scss/style.scss';
@@ -14,18 +18,25 @@ import { Proposal } from './components/popup/proposal.jsx';
 
 import { store } from './store.js';
 
+import {
+  setLoading,
+  setShowSignIn,
+  setShowProposal,
+  setShowSuccess,
+} from './features/popup/popupSlice.js';
+
 const Popup = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [showSignIn, setShowSignIn] = useState(true);
-  const [showProposal, setShowProposal] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const dispatch = useDispatch();
+  const showSignIn = useSelector((state) => state.popup.showSignIn);
+  const isLoading = useSelector((state) => state.popup.loading);
+  const showProposal = useSelector((state) => state.popup.showProposal);
+  const showSuccess = useSelector((state) => state.popup.showSuccess);
 
   useEffect(() => {
     browser.storage.sync.get('token').then((result) => {
       if (result.token) {
-        setShowSignIn(false);
-        setIsLoading(false);
-        setShowProposal(true);
+        dispatch(setShowSignIn(false));
+        dispatch(setShowProposal(true));
       }
     });
   }, []);
