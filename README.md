@@ -1,6 +1,10 @@
-<h1 align="center">
-    Google Chrome Extension for Screenly
-</h1>
+<br>
+
+<p align="center">
+    <img src="/docs/images/banner.svg" alt="Extension Banner" width="90%">
+</p>
+
+<br>
 
 <p align="center">
     <a href="https://github.com/Screenly/Chrome-Extension/actions/workflows/build.yaml?query=branch%3Amaster">
@@ -15,9 +19,13 @@
     </a>
 </p>
 
+<br>
+
 <p align="center">
     <strong>Easily add content to your Screenly digital signage displays in a few clicks. :sparkles:</strong>
 </p>
+
+<br>
 
 ## :seedling: Install
 
