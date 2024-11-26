@@ -19,6 +19,10 @@
     <strong>Easily add content to your Screenly digital signage displays in a few clicks. :sparkles:</strong>
 </p>
 
+<p align="center">
+    <img src="/docs/images/banner.svg" alt="Extension Banner">
+</p>
+
 ## :seedling: Install
 
 * Install the extension from the [Chrome Web Store](https://chromewebstore.google.com/detail/save-to-screenly/kcoehkngnbhlmdcgcadliaadlmbjmcln).
