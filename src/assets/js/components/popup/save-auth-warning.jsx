@@ -17,7 +17,9 @@ export const SaveAuthWarning = (props) => {
               class='break-anywhere text-monospace'
               id='hostname'
             >
-              {hostname}
+              <strong>
+                {` ${hostname} `}
+              </strong>
             </span>
 
             and gain access to your account.
