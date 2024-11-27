@@ -8,7 +8,8 @@ import { signIn } from '../../features/auth/authSlice.js';
 const SignInError = () => {
   return (
     <div className='alert alert-danger mt-2' role='alert'>
-      Sign In Error
+      Unable to sign in. Check your credentials and internet connectivity,
+      then try again.
     </div>
   );
 }
