@@ -16,12 +16,5 @@ cat src/manifest-$PLATFORM.json \
     | jq --arg version "$VERSION" '.version = $version' \
     > src/manifest.json
 
-docker compose build
-docker run \
-    --rm -ti \
-    -v $(pwd):/app:delegated \
-    -v /app/node_modules \
-    sce_webpack:latest \
-    /bin/bash -c "npx webpack --config webpack.prod.js"
-
-(cd dist && zip -r ../screenly-$PLATFORM-extension-$VERSION.zip *)
+docker compose down -v
+docker compose up --build

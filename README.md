@@ -29,6 +29,11 @@
 
 ## :seedling: Install
 
+> [!NOTE]
+> The extension is only available for installation on Chrome.
+> For Firefox, you can [package](#distribute) the extension and install the
+> extension as a [temporary add-on](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/).
+
 * Install the extension from the [Chrome Web Store](https://chromewebstore.google.com/detail/save-to-screenly/kcoehkngnbhlmdcgcadliaadlmbjmcln).
 
 ## :computer: Develop
@@ -36,15 +41,24 @@
 The extension is built using [webpack](https://webpack.js.org/).
 
 ```bash
-$ docker compose up --build
+$ PLATFORM=<PLATFORM> \
+  VERSION=<VERSION> \
+    ./bin/start_development_mode.sh
 ```
+
+> [!IMPORTANT]
+> * `VERSION` can be any valid version semver string (`X.Y.Z`),
+>   where `X`, `Y`, and `Z` are non-negative numbers.
+> * `PLATFORM` can be either `chrome` or `firefox`.
 
 Now load the content of the `dist/` folder as an unpacked extension in Chrome. As you make changes to the code, the extension is automatically rebuilt.
 
 ### Distribute
 
 ```bash
-$ VERSION=<EXTENSION_VERSION> ./bin/package_extension.sh
+$ VERSION=<EXTENSION_VERSION> \
+  PLATFORM=<PLATFORM> \
+    ./bin/package_extension.sh
 ```
 
 ## :test_tube: Run Unit Tests
@@ -53,9 +67,19 @@ $ VERSION=<EXTENSION_VERSION> ./bin/package_extension.sh
 $ ./bin/run_tests.sh
 ```
 
+### Chrome
+
 * Build the extension in dev mode.
 * Load the extension as an unpacked extension from the `dist` folder.
-* Find the extension URL and then open `chrome-extension://extension-id/test/tests.html` in Chrome.
+* Find the extension URL and then open `chrome-extension://<extension-id>/test/tests.html` in Chrome.
+
+### Firefox
+
+* Build the extension in dev mode.
+* Open Firefox and navigate to `about:debugging`.
+* Click on **This Firefox** and then **Load Temporary Add-on**.
+  * You can either select the `manifest.json` file or the zipped extension.
+* Find the extension URL and then open `moz-extension://<extension-id>/test/tests.html` in Firefox.
 
 ## :rocket: Release
 
