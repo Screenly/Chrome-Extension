@@ -2,10 +2,10 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { SaveAuthWarning } from './save-auth-warning.jsx';
-import { SaveAuthHelp } from './save-auth-help.jsx';
+import { SaveAuthWarning } from '@/components/popup/save-auth-warning.jsx';
+import { SaveAuthHelp } from '@/components/popup/save-auth-help.jsx';
 
-import * as cookiejs from '../../../../lib/vendor/cookie.mjs';
+import * as cookiejs from '@/vendor/cookie.mjs';
 import {
   getAssetDashboardLink,
   getUser,
@@ -13,13 +13,13 @@ import {
   createWebAsset,
   updateWebAsset,
   State,
-} from '../../main.mjs';
+} from '@/main.mjs';
 import {
   setAssetDashboardLink,
   setShowProposal,
   setShowSuccess,
-} from '../../features/popup/popupSlice.js';
-import { PopupLoading } from './loading.jsx';
+} from '@/features/popup/popupSlice.js';
+import { PopupLoading } from '@/components/popup/loading.jsx';
 
 export const Proposal = (props) => {
   const dispatch = useDispatch();

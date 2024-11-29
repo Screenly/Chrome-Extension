@@ -2,8 +2,6 @@ import React from 'react';
 
 export const PopupSignIn = () => {
   const handleSignIn = async (event) => {
-    // TODO: Implement sign-in logic.
-    // open the options page
     browser.runtime.openOptionsPage();
   };
 
