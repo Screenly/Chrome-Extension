@@ -282,6 +282,8 @@ export const Proposal = (props) => {
                 )
               };
             });
+
+            setButtonState(state ? 'update' : 'add');
           });
       });
   };
