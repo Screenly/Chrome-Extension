@@ -1,5 +1,5 @@
 ---
-name: Build Screenly Chrome Extension
+name: Build Screenly Browser Extensions
 
 on:
   pull_request:
@@ -18,6 +18,9 @@ jobs:
       id-token: write
       contents: write
       attestations: write
+    strategy:
+      matrix:
+        platform: ['chrome', 'firefox']
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,7 +33,9 @@ jobs:
             export SCREENLY_CE_VERSION="0.0.0"
           fi
 
-          cat <<< $(cat src/manifest.json | jq --arg version "$SCREENLY_CE_VERSION" '.version = $version') > src/manifest.json
+          cat src/manifest-${{ matrix.platform }}.json \
+              | jq --arg version "$SCREENLY_CE_VERSION" '.version = $version' \
+              > src/manifest.json
 
       - name: Build Docker images
         run: |
@@ -58,25 +63,25 @@ jobs:
       - name: Compress
         run: |
           cd artifacts/dist/
-          zip -r ${{ github.workspace }}/screenly-chrome-extension.zip .
+          zip -r ${{ github.workspace }}/screenly-${{ matrix.platform }}-extension.zip .
 
       - name: Attest
         uses: actions/attest-build-provenance@v1
         with:
-          subject-path: '${{ github.workspace }}/screenly-chrome-extension.zip'
+          subject-path: '${{ github.workspace }}/screenly-${{ matrix.platform }}-extension.zip'
 
       - name: Upload Archive as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: screenly-chrome-extension
+          name: screenly-${{ matrix.platform }}-extension
           path: artifacts/dist
 
       - name: Prepare Release
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           cp \
-            ${{ github.workspace }}/screenly-chrome-extension.zip \
-            ${{ github.workspace }}/screenly-chrome-extension-${{ github.ref_name }}.zip
+            ${{ github.workspace }}/screenly-${{ matrix.platform }}-extension.zip \
+            ${{ github.workspace }}/screenly-${{ matrix.platform }}-extension-${{ github.ref_name }}.zip
 
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/')
@@ -84,7 +89,7 @@ jobs:
         with:
           allowUpdates: true
           prerelease: true
-          artifacts: "screenly-chrome-extension-${{ github.ref_name }}.zip"
+          artifacts: "screenly-${{ matrix.platform }}-extension-${{ github.ref_name }}.zip"
 
   generate-sbom:
     runs-on: ubuntu-latest
@@ -94,6 +99,9 @@ jobs:
       contents: read
       attestations: write
     needs: build
+    strategy:
+      matrix:
+        platform: ['chrome', 'firefox']
     if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Checkout
@@ -107,11 +115,11 @@ jobs:
           OVERRIDE_SBOM_METADATA: true
           SBOM_VERSION: ${{ github.ref_name }}
           LOCK_FILE: 'package-lock.json'
-          OUTPUT_FILE: 'chrome-extension.cdx.json'
+          OUTPUT_FILE: '${{ matrix.platform }}-extension.cdx.json'
           AUGMENT: true
           ENRICH: true
 
       - name: Attest build
         uses: actions/attest-build-provenance@v1
         with:
-          subject-path: '${{ github.workspace }}/chrome-extension.cdx.json'
+          subject-path: '${{ github.workspace }}/${{ matrix.platform }}-extension.cdx.json'

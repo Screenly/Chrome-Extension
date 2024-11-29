@@ -1,5 +1,5 @@
 'use strict';
 
-import {initOptions} from "./options.mjs";
+import {initOptions} from "@/options.mjs";
 
 initOptions();
