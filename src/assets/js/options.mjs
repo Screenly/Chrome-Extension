@@ -5,6 +5,7 @@
 import {
   assert,
   getUser,
+  getTeam,
   hideElement,
   setButtonWaitState,
   showElement,
@@ -67,5 +68,31 @@ export function initOptions() {
     } else {
       showPage(elements.signInPage);
     }
+
+    elements.signInForm.addEventListener('submit', submitSignIn);
+    elements.signOutButton.addEventListener('click', signOut);
+    elements.signUpLink.href = `https://login.screenlyapp.com/sign-up?next=${window.location.href}`
+
+    getUser().then((user) => {
+        if (user.token) {
+            getTeam(user)
+                .then((team) => {
+                    if (team.length > 0) {
+                        const teamNames = team.map((t) => `<li>${t.name}</li>`).join('');
+                        document.querySelector('.team-name')
+                            .innerHTML = `<ul>${teamNames}</ul>`;
+                    }
+
+                    showPage(elements.signedInPage);
+                })
+                .catch(() => {
+                    showPage(elements.signInPage);
+                    showElement(elements.signInError);
+                    browser.storage.sync.clear();
+                });
+        } else {
+            showPage(elements.signInPage);
+        }
+    });
   });
 }
