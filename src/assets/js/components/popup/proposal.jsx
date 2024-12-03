@@ -327,7 +327,7 @@ export const Proposal = (props) => {
               />
               <label
                 className="form-check-label"
-                for="with-auth-check"
+                htmlFor="with-auth-check"
               >
               Save Authentication
               </label>
@@ -345,7 +345,7 @@ export const Proposal = (props) => {
               />
               <label
                 className="form-check-label"
-                for="no-verification-check"
+                htmlFor="no-verification-check"
               >
                 Bypass Verification
               </label>

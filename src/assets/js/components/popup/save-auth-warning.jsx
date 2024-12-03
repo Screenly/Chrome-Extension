@@ -9,12 +9,12 @@ export const SaveAuthWarning = (props) => {
   });
 
   return (
-      <div class="mt-2" id="with-auth-check-info" hidden={props.hidden}>
-        <div class="alert alert-warning">
-          <p class="mb-0">
+      <div className="mt-2" id="with-auth-check-info" hidden={props.hidden}>
+        <div className="alert alert-warning">
+          <p className="mb-0">
             Warning: a determined attacker with physical access to your digital sign could extract these saved credentials for
             <span
-              class="break-anywhere text-monospace"
+              className="break-anywhere text-monospace"
               id="hostname"
             >
               <strong>
