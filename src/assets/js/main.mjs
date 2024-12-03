@@ -2,7 +2,7 @@
 
 /* global browser */
 
-import "@/vendor/normalize-url";
+import '@/vendor/normalize-url';
 
 export function callApi(method, url, data=undefined, token=undefined) {
   let init = {
@@ -30,14 +30,14 @@ export function callApi(method, url, data=undefined, token=undefined) {
       return response.json();
     }).then((jsonResponse) => {
       // This is useful when debugging.
-      // console.info("Response body: " + JSON.stringify(jsonResponse));
+      // console.info('Response body: ' + JSON.stringify(jsonResponse));
       return jsonResponse;
     }).catch((error) => {
       // Do some basic logging but then just rethrow the error.
 
-      console.error("API request %s %s failed: %s", method, url, error);
+      console.error('API request %s %s failed: %s', method, url, error);
       if (error.status)
-        console.info("Response: ", error);
+        console.info('Response: ', error);
 
       throw error;
     });
@@ -49,13 +49,13 @@ export function getUser() {
 
 export function createWebAsset(user, url, title, headers, disableVerification) {
   return callApi(
-    "POST",
-    "https://api.screenlyapp.com/api/v4/assets/",
+    'POST',
+    'https://api.screenlyapp.com/api/v4/assets/',
     {
-      "source_url": url,
-      "title": title,
-      "headers": headers,
-      "disable_verification": disableVerification,
+      'source_url': url,
+      'title': title,
+      'headers': headers,
+      'disable_verification': disableVerification,
     },
     user.token
   );
@@ -64,11 +64,11 @@ export function createWebAsset(user, url, title, headers, disableVerification) {
 export function updateWebAsset(assetId, user, url, title, headers, disableVerification) { // eslint-disable-line no-unused-vars
   let queryParams = `id=eq.${encodeURIComponent(assetId)}`;
   return callApi(
-    "PATCH",
+    'PATCH',
     `https://api.screenlyapp.com/api/v4/assets/?${queryParams}`,
     {
-      "title": title,
-      "headers": headers,
+      'title': title,
+      'headers': headers,
     },
     user.token
   );
@@ -76,7 +76,7 @@ export function updateWebAsset(assetId, user, url, title, headers, disableVerifi
 
 export function getWebAsset(assetId, user) {
   return callApi(
-    "GET",
+    'GET',
     `https://api.screenlyapp.com/api/v4/assets/${encodeURIComponent(assetId)}/`,
     null,
     user.token
@@ -131,12 +131,12 @@ export class State {
         } else
           delete state[url];
 
-        console.debug("State: ", state);
+        console.debug('State: ', state);
         return browser.storage.sync.set({'state': state})
           .catch((error) => {
-            console.error("Unable to save state %s -> %s (%s)", url, assetId, error);
+            console.error('Unable to save state %s -> %s (%s)', url, assetId, error);
 
-            if (!error || !error.message || !error.message.includes("QUOTA_BYTES")) {
+            if (!error || !error.message || !error.message.includes('QUOTA_BYTES')) {
               // Unknown error. Ignore.
               throw error;
             }
@@ -164,7 +164,7 @@ export class State {
       .then(({state}) => {
         state = state || {};
         const v = state[url];
-        if (typeof v != "object") {
+        if (typeof v != 'object') {
           // Backwards compatibility with 0.2. Just ignore the old format.
           return undefined;
         }

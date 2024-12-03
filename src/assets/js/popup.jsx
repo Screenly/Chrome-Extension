@@ -49,7 +49,7 @@ const Popup = () => {
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById("app"));
+const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(
   <Provider store={store}>
     <Popup />

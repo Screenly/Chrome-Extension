@@ -31,7 +31,7 @@ const Options = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className='container'>
       <div className='container container-small'>
         <div className='mb-5 mt-5 text-center'>
           <img src='assets/images/screenly-logo-128.png' width='64' />
@@ -47,7 +47,7 @@ const Options = () => {
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById("app"));
+const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(
   <Provider store={store}>
     <Options />

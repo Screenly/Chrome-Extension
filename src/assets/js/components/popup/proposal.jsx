@@ -124,7 +124,7 @@ export const Proposal = (props) => {
           return [
             window.location.href,
             document.title,
-            performance.getEntriesByType("resource").map(e => e.name)
+            performance.getEntriesByType('resource').map(e => e.name)
           ];
         }
       });
@@ -132,7 +132,7 @@ export const Proposal = (props) => {
       let [pageUrl, pageTitle, resourceEntries] = result[0].result;
 
       if (!resourceEntries) {
-        console.info("Current page has no resources.");
+        console.info('Current page has no resources.');
         return;
       }
 
@@ -166,7 +166,7 @@ export const Proposal = (props) => {
 
       await proposeToAddToScreenly(user, pageUrl, pageTitle, cookieJar);
     } catch (error) {
-      console.error("Failed to list resources (%s).", error.message);
+      console.error('Failed to list resources (%s).', error.message);
       window.close();
     }
   };
@@ -195,7 +195,7 @@ export const Proposal = (props) => {
       headers = {
         'Cookie': currentProposal.cookieJar.map(
           cookie => cookiejs.serialize(cookie.name, cookie.value)
-        ).join("; ")
+        ).join('; ')
       };
     }
 
@@ -226,7 +226,7 @@ export const Proposal = (props) => {
         console.debug(result);
 
         if (result.length === 0) {
-          throw "No asset data returned";
+          throw 'No asset data returned';
         }
 
         State.setSavedAssetState(
@@ -256,25 +256,25 @@ export const Proposal = (props) => {
 
         error.json()
           .then((errorJson) => {
-            console.error("Failed to add/update asset:", error);
-            console.error("Response: ", errorJson);
+            console.error('Failed to add/update asset:', error);
+            console.error('Response: ', errorJson);
 
             if (
               errorJson.type &&
-              errorJson.type[0] === "AssetUnreachableError"
+              errorJson.type[0] === 'AssetUnreachableError'
             ) {
               setBypassVerification(true);
               setError((prev) => {
                 return {
                   ...prev,
                   show: true,
-                  message: "Screenly couldn't reach this web page. To save it anyhow, use the Bypass Verification option."
+                  message: 'Screenly couldn\'t reach this web page. To save it anyhow, use the Bypass Verification option.'
                 };
               });
             } else if (!errorJson.type) {
               throw JSON.stringify(errorJson);
             } else {
-              throw "Unknown error";
+              throw 'Unknown error';
             }
           }).catch((error) => {
             const prefix = (
@@ -303,31 +303,31 @@ export const Proposal = (props) => {
 
   return (
     <>
-      <div className='page' id='proposal-page'>
-        <form id='add-it'>
+      <div className="page" id="proposal-page">
+        <form id="add-it">
           <section>
-            <h5 id='title'>{assetTitle}</h5>
+            <h5 id="title">{assetTitle}</h5>
           </section>
-          <section className='bg-light'>
+          <section className="bg-light">
             <div
-              className='break-anywhere text-monospace'
-              id='url'
+              className="break-anywhere text-monospace"
+              id="url"
             >
               {assetUrl}
             </div>
           </section>
           <section>
-            <div className='form-check'>
+            <div className="form-check">
               <input
-                className='form-check-input'
-                id='with-auth-check'
-                type='checkbox'
+                className="form-check-input"
+                id="with-auth-check"
+                type="checkbox"
                 checked={saveAuthentication}
                 onChange={(e) => setSaveAuthentication(e.target.checked)}
               />
               <label
-                className='form-check-label'
-                for='with-auth-check'
+                className="form-check-label"
+                for="with-auth-check"
               >
               Save Authentication
               </label>
@@ -336,16 +336,16 @@ export const Proposal = (props) => {
             <SaveAuthHelp />
           </section>
 
-          <section id='verification' hidden={!bypassVerification}>
-            <div className='form-check'>
+          <section id="verification" hidden={!bypassVerification}>
+            <div className="form-check">
               <input
-                className='form-check-input'
-                id='no-verification-check'
-                type='checkbox'
+                className="form-check-input"
+                id="no-verification-check"
+                type="checkbox"
               />
               <label
-                className='form-check-label'
-                for='no-verification-check'
+                className="form-check-label"
+                for="no-verification-check"
               >
                 Bypass Verification
               </label>
@@ -354,34 +354,34 @@ export const Proposal = (props) => {
 
           <section>
             <button
-              className='btn btn-primary w-100'
-              id='add-it-submit'
-              type='submit'
+              className="btn btn-primary w-100"
+              id="add-it-submit"
+              type="submit"
               onClick={handleSubmission}
             >
               <span
-                className='add label'
-                hidden={buttonState !== 'add'}
+                className="add label"
+                hidden={buttonState !== "add"}
               >
                 Add to Screenly
               </span>
 
               <span
-                className='spinner-border spinner-border-sm'
-                hidden={buttonState !== 'loading'}
+                className="spinner-border spinner-border-sm"
+                hidden={buttonState !== "loading"}
               >
               </span>
 
               <span
-                className='label update'
-                hidden={buttonState !== 'update'}
+                className="label update"
+                hidden={buttonState !== "update"}
               >
                 Update Asset
               </span>
             </button>
             <div
-              className='alert alert-danger mb-0 mt-3'
-              id='add-it-error'
+              className="alert alert-danger mb-0 mt-3"
+              id="add-it-error"
               hidden={!error.show}
             >
               {error.message}
