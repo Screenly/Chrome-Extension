@@ -42,15 +42,12 @@ export const SignIn = () => {
       await browser.storage.sync.set({ token: token });
 
       setShowSignInError(false);
+      dispatch(signIn());
     } catch (error) {
       setShowSignInError(true);
-      return;
     } finally {
       setIsLoading(false);
     }
-
-    setIsLoading(false);
-    dispatch(signIn());
   }
 
   return (
