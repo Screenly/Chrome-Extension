@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const PopupSignIn = () => {
-  const handleSignIn = async (event) => {
+  const handleSignIn = (event) => {
     browser.runtime.openOptionsPage();
   };
 
