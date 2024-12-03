@@ -95,13 +95,14 @@ module.exports = {
     alias: {
       '@/options.mjs': path.resolve(__dirname, 'src/assets/js/options.mjs'),
       '@/popup.mjs': path.resolve(__dirname, 'src/assets/js/popup.mjs'),
-      '@/store.js': path.resolve(__dirname, 'src/assets/js/store.js'),
-      '@/main.mjs': path.resolve(__dirname, 'src/assets/js/main.mjs'),
+      '@/store': path.resolve(__dirname, 'src/assets/js/store.js'),
+      '@/main': path.resolve(__dirname, 'src/assets/js/main.mjs'),
       '@/components': path.resolve(__dirname, 'src/assets/js/components'),
       '@/features': path.resolve(__dirname, 'src/assets/js/features'),
       '@/scss': path.resolve(__dirname, 'src/assets/scss'),
       '@/vendor': path.resolve(__dirname, 'src/lib/vendor'),
     },
+    extensions: ['.js', '.jsx', '.mjs'],
   },
 
   watchOptions: {

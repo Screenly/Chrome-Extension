@@ -1,11 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-
-import { callApi } from '@/main.mjs';
 import { useDispatch } from 'react-redux';
-import { signIn } from '@/features/auth/authSlice.js';
 
-import { TokenHelpText } from '@/components/options/token-help-text.jsx';
+import { callApi } from '@/main';
+import { signIn } from '@/features/auth/authSlice';
+import { TokenHelpText } from '@/components/options/token-help-text';
 
 const SignInError = () => {
   return (

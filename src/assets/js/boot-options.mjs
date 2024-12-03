@@ -12,11 +12,11 @@ import {
 import 'bootstrap/scss/bootstrap.scss';
 import '@/scss/style.scss';
 
-import { SignIn } from '@/components/options/sign-in.jsx';
-import { SignedIn } from '@/components/options/signed-in.jsx';
+import { SignIn } from '@/components/options/sign-in';
+import { SignedIn } from '@/components/options/signed-in';
 
-import { store } from '@/store.js';
-import { signIn } from '@/features/auth/authSlice.js';
+import { store } from '@/store';
+import { signIn } from '@/features/auth/authSlice';
 
 const Options = () => {
   const signedIn = useSelector((state) => state.auth.signedIn);

@@ -2,7 +2,7 @@
 
 /* global browser */
 
-import "@/vendor/normalize-url.js";
+import "@/vendor/normalize-url";
 
 export function callApi(method, url, data=undefined, token=undefined) {
   let init = {

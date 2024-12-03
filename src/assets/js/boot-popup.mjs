@@ -13,16 +13,16 @@ import 'bootstrap/scss/bootstrap.scss';
 import '@/scss/style.scss';
 import '@/scss/sweetalert-icons.scss';
 
-import { PopupSignIn } from '@/components/popup/sign-in.jsx';
-import { Success } from '@/components/popup/success.jsx';
-import { Proposal } from '@/components/popup/proposal.jsx';
+import { PopupSignIn } from '@/components/popup/sign-in';
+import { Success } from '@/components/popup/success';
+import { Proposal } from '@/components/popup/proposal';
 
-import { store } from '@/store.js';
+import { store } from '@/store';
 
 import {
   setShowSignIn,
   setShowProposal,
-} from '@/features/popup/popupSlice.js';
+} from '@/features/popup/popupSlice';
 
 const Popup = () => {
   const dispatch = useDispatch();
