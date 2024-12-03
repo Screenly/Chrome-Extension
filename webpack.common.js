@@ -6,8 +6,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
-    "popup": './src/assets/js/boot-popup.mjs',
-    "options": './src/assets/js/boot-options.mjs',
+    'popup': './src/assets/js/popup.jsx',
+    'options': './src/assets/js/options.jsx',
   },
 
   module: {
@@ -93,8 +93,6 @@ module.exports = {
 
   resolve: {
     alias: {
-      '@/options.mjs': path.resolve(__dirname, 'src/assets/js/options.mjs'),
-      '@/popup.mjs': path.resolve(__dirname, 'src/assets/js/popup.mjs'),
       '@/store': path.resolve(__dirname, 'src/assets/js/store.js'),
       '@/main': path.resolve(__dirname, 'src/assets/js/main.mjs'),
       '@/components': path.resolve(__dirname, 'src/assets/js/components'),
