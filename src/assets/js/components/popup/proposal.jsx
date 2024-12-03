@@ -30,7 +30,7 @@ export const Proposal = (props) => {
   const [buttonState, setButtonState] = useState('add');
   const [error, setError] = useState({
     show: false,
-    message: 'Failed'
+    message: 'Failed to add or update asset'
   });
   const [bypassVerification, setBypassVerification] = useState(false);
   const [saveAuthentication, setSaveAuthentication] = useState(false);
@@ -258,7 +258,11 @@ export const Proposal = (props) => {
           .then((errorJson) => {
             console.error("Failed to add/update asset:", error);
             console.error("Response: ", errorJson);
-            if (errorJson.type[0] === "AssetUnreachableError") {
+
+            if (
+              errorJson.type &&
+              errorJson.type[0] === "AssetUnreachableError"
+            ) {
               setBypassVerification(true);
               setError((prev) => {
                 return {
@@ -267,18 +271,23 @@ export const Proposal = (props) => {
                   message: "Screenly couldn't reach this web page. To save it anyhow, use the Bypass Verification option."
                 };
               });
+            } else if (!errorJson.type) {
+              throw JSON.stringify(errorJson);
             } else {
               throw "Unknown error";
             }
-          }).catch(() => {
+          }).catch((error) => {
+            const prefix = (
+              state ?
+                'Failed to update asset' :
+                'Failed to save web page'
+            );
             setError((prev) => {
               return {
                 ...prev,
                 show: true,
                 message: (
-                  state ?
-                    "Failed to update asset." :
-                    "Failed to save web page."
+                  `${prefix}: ${error}`
                 )
               };
             });
