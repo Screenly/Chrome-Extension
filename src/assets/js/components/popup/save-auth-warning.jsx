@@ -6,7 +6,7 @@ export const SaveAuthWarning = (props) => {
 
   useEffect(() => {
     setHostname(props.hostname);
-  });
+  }, [props.hostname]);
 
   return (
       <div className="mt-2" id="with-auth-check-info" hidden={props.hidden}>
