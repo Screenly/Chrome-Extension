@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const PopupLoading = () => {
+export const PopupSpinner = () => {
   return (
     <div className="page" id="working-page">
       <div className="align-items-center d-flex h-100 justify-content-center">

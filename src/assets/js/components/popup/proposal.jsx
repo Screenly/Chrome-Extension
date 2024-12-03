@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { PopupLoading } from '@/components/popup/loading';
+import { PopupSpinner } from '@/components/popup/popup-spinner';
 import { SaveAuthWarning } from '@/components/popup/save-auth-warning';
 import { SaveAuthHelp } from '@/components/popup/save-auth-help';
 
@@ -298,7 +298,7 @@ export const Proposal = (props) => {
   };
 
   if (isLoading) {
-    return <PopupLoading />;
+    return <PopupSpinner />;
   }
 
   return (
