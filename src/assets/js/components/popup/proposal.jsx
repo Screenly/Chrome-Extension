@@ -76,8 +76,6 @@ export const Proposal = (props) => {
         setProposal(currentProposal);
 
         if (state) {
-          console.info(`URL ${url} associated with asset ID ${state.assetId}`);
-
           setSaveAuthentication(state.withCookies);
           setButtonState('update');
         } else {
@@ -132,7 +130,6 @@ export const Proposal = (props) => {
       let [pageUrl, pageTitle, resourceEntries] = result[0].result;
 
       if (!resourceEntries) {
-        console.info('Current page has no resources.');
         return;
       }
 
@@ -166,7 +163,6 @@ export const Proposal = (props) => {
 
       await proposeToAddToScreenly(user, pageUrl, pageTitle, cookieJar);
     } catch (error) {
-      console.error('Failed to list resources (%s).', error.message);
       window.close();
     }
   };
@@ -223,8 +219,6 @@ export const Proposal = (props) => {
 
     action
       .then((result) => {
-        console.debug(result);
-
         if (result.length === 0) {
           throw 'No asset data returned';
         }
@@ -256,9 +250,6 @@ export const Proposal = (props) => {
 
         error.json()
           .then((errorJson) => {
-            console.error('Failed to add/update asset:', error);
-            console.error('Response: ', errorJson);
-
             if (
               errorJson.type &&
               errorJson.type[0] === 'AssetUnreachableError'

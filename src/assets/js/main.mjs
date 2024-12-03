@@ -29,15 +29,11 @@ export function callApi(method, url, data=undefined, token=undefined) {
 
       return response.json();
     }).then((jsonResponse) => {
-      // This is useful when debugging.
-      // console.info('Response body: ' + JSON.stringify(jsonResponse));
       return jsonResponse;
     }).catch((error) => {
       // Do some basic logging but then just rethrow the error.
 
-      console.error('API request %s %s failed: %s', method, url, error);
       if (error.status)
-        console.info('Response: ', error);
 
       throw error;
     });
@@ -114,7 +110,6 @@ export class State {
 
   static setSavedAssetState(url, assetId, withCookies, withBypass) {
     url = State.simplifyUrl(url);
-    console.debug(`Saving ${url} -> ${assetId}`);
 
     const savedState = {
       assetId: assetId,
@@ -131,10 +126,8 @@ export class State {
         } else
           delete state[url];
 
-        console.debug('State: ', state);
         return browser.storage.sync.set({'state': state})
           .catch((error) => {
-            console.error('Unable to save state %s -> %s (%s)', url, assetId, error);
 
             if (!error || !error.message || !error.message.includes('QUOTA_BYTES')) {
               // Unknown error. Ignore.
@@ -158,7 +151,6 @@ export class State {
 
   static getSavedAssetState(url) {
     url = State.simplifyUrl(url);
-    console.debug(`Reading back ${url}`);
 
     return browser.storage.sync.get(['state'])
       .then(({state}) => {
