@@ -35,7 +35,6 @@ export const Success = () => {
         <section>
           <button
             className="btn btn-primary w-100"
-            id="view-it"
             onClick={openAssetDashboard}
           >
             <span className="label">View Asset</span>
