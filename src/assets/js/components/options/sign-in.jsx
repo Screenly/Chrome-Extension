@@ -51,61 +51,57 @@ export const SignIn = () => {
   }
 
   return (
-    <>
-      <div>
-        <div className="page" id="sign-in-page">
-          <form className="sign-in">
-            <div className="form-group mb-3">
-              <input
-                className="form-control"
-                id="token"
-                type="password"
-                placeholder="Token"
-                onChange={(event) => setToken(event.target.value)}
-              />
-            </div>
-            <button
-              className="btn btn-primary w-100"
-              id="sign-in-submit"
-              type="submit"
-              onClick={handleSignIn}
-            >
-              {
-                isLoading
-                  ? (
-                      <span
-                        className="spinner spinner-border spinner-border-sm">
-                      </span>
-                    )
-                  : <span className="label">Sign In</span>
-              }
-            </button>
-
-            <TokenHelpText />
-
-            {
-              showSignInError
-                ? <SignInError />
-                : null
-            }
-          </form>
-          <section className="mt-2">
-            <div className="small text-center">
-              Need an account?
-              &nbsp;
-              <a
-                id="sign-up-link"
-                href={getSignUpLink()}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Sign Up
-              </a>
-            </div>
-          </section>
+    <div className="page" id="sign-in-page">
+      <form className="sign-in">
+        <div className="form-group mb-3">
+          <input
+            className="form-control"
+            id="token"
+            type="password"
+            placeholder="Token"
+            onChange={(event) => setToken(event.target.value)}
+          />
         </div>
-      </div>
-    </>
+        <button
+          className="btn btn-primary w-100"
+          id="sign-in-submit"
+          type="submit"
+          onClick={handleSignIn}
+        >
+          {
+            isLoading
+              ? (
+                  <span
+                    className="spinner spinner-border spinner-border-sm">
+                  </span>
+                )
+              : <span className="label">Sign In</span>
+          }
+        </button>
+
+        <TokenHelpText />
+
+        {
+          showSignInError
+            ? <SignInError />
+            : null
+        }
+      </form>
+      <section className="mt-2">
+        <div className="small text-center">
+          Need an account?
+          &nbsp;
+          <a
+            id="sign-up-link"
+            href={getSignUpLink()}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Sign Up
+          </a>
+        </div>
+      </section>
+    </div>
   );
 };
 
