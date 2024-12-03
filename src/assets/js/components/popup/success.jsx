@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 export const Success = () => {
   const assetDashboardLink = useSelector((state) => state.popup.assetDashboardLink);
 
-  const openAssetDashboard = async () => {
+  const openAssetDashboard = () => {
     window.open(assetDashboardLink);
   };
 
