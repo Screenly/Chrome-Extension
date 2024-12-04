@@ -1,4 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit';
+/* global browser */
+
+import {
+  createAsyncThunk,
+  createSlice
+} from '@reduxjs/toolkit';
+
+export const signIn = createAsyncThunk(
+  'popup/signIn',
+  async () => {
+    const result = await browser.storage.sync.get('token');
+    if (result.token) {
+      return true;
+    }
+    return false;
+  }
+);
 
 const popupSlice = createSlice({
   name: 'popup',
@@ -9,22 +25,24 @@ const popupSlice = createSlice({
     assetDashboardLink: '',
   },
   reducers: {
-    setShowSignIn: (state, action) => {
-      state.showSignIn = action.payload;
+    notifyAssetSaveSuccess: (state) => {
+      state.showSuccess = true;
+      state.showProposal = false;
     },
-    setShowProposal: (state, action) => {
-      state.showProposal = action.payload;
-    },
-    setShowSuccess: (state, action) => {
-      state.showSuccess = action.payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(signIn.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.showSignIn = false;
+          state.showProposal = true;
+        }
+      });
   },
 });
 
 export const {
-  setShowSignIn,
-  setShowProposal,
-  setShowSuccess,
   setAssetDashboardLink,
+  notifyAssetSaveSuccess,
 } = popupSlice.actions;
 export default popupSlice.reducer;

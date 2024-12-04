@@ -1,5 +1,3 @@
-/* global browser */
-
 import ReactDOM from 'react-dom/client';
 import React from 'react';
 import {
@@ -21,11 +19,7 @@ import { Success } from '@/components/popup/success';
 import { Proposal } from '@/components/popup/proposal';
 
 import { store } from '@/store';
-
-import {
-  setShowSignIn,
-  setShowProposal,
-} from '@/features/popup/popupSlice';
+import { signIn } from '@/features/popup/popupSlice';
 
 const PopupPage = () => {
   const dispatch = useDispatch();
@@ -37,12 +31,7 @@ const PopupPage = () => {
   const [assetDashboardLink, setAssetDashboardLink] = useState('');
 
   useEffect(() => {
-    browser.storage.sync.get('token').then((result) => {
-      if (result.token) {
-        dispatch(setShowSignIn(false));
-        dispatch(setShowProposal(true));
-      }
-    });
+    dispatch(signIn());
 
     document.addEventListener('set-asset-dashboard-link', (event) => {
       setAssetDashboardLink(event.detail);

@@ -17,10 +17,7 @@ import {
   updateWebAsset,
   State,
 } from '@/main';
-import {
-  setShowProposal,
-  setShowSuccess,
-} from '@/features/popup/popupSlice';
+import { notifyAssetSaveSuccess } from '@/features/popup/popupSlice';
 
 export const Proposal = () => {
   const dispatch = useDispatch();
@@ -233,14 +230,12 @@ export const Proposal = () => {
 
         setButtonState(state ? 'update' : 'add');
 
-        dispatch(setShowSuccess(true));
-
         const event = new CustomEvent('set-asset-dashboard-link', {
           detail: getAssetDashboardLink(result[0].id)
         });
         document.dispatchEvent(event);
 
-        dispatch(setShowProposal(false));
+        dispatch(notifyAssetSaveSuccess());
       })
       .catch((error) => {
         if (error.statusCode === 401) {
