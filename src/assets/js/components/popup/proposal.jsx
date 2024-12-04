@@ -16,7 +16,6 @@ import {
   State,
 } from '@/main';
 import {
-  setAssetDashboardLink,
   setShowProposal,
   setShowSuccess,
 } from '@/features/popup/popupSlice';
@@ -233,7 +232,12 @@ export const Proposal = (props) => {
         setButtonState(state ? 'update' : 'add');
 
         dispatch(setShowSuccess(true));
-        dispatch(setAssetDashboardLink(getAssetDashboardLink(result[0].id)));
+
+        const event = new CustomEvent('set-asset-dashboard-link', {
+          detail: getAssetDashboardLink(result[0].id)
+        });
+        document.dispatchEvent(event);
+
         dispatch(setShowProposal(false));
       })
       .catch((error) => {

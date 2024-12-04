@@ -2,7 +2,10 @@
 
 import ReactDOM from 'react-dom/client';
 import React from 'react';
-import { useEffect } from 'react';
+import {
+  useEffect,
+  useState,
+} from 'react';
 import {
   Provider,
   useDispatch,
@@ -31,6 +34,8 @@ const PopupPage = () => {
   const showProposal = useSelector((state) => state.popup.showProposal);
   const showSuccess = useSelector((state) => state.popup.showSuccess);
 
+  const [assetDashboardLink, setAssetDashboardLink] = useState('');
+
   useEffect(() => {
     browser.storage.sync.get('token').then((result) => {
       if (result.token) {
@@ -38,13 +43,17 @@ const PopupPage = () => {
         dispatch(setShowProposal(true));
       }
     });
+
+    document.addEventListener('set-asset-dashboard-link', (event) => {
+      setAssetDashboardLink(event.detail);
+    });
   }, []);
 
   return (
     <>
       {showSignIn && <SignInCallToAction />}
       {showProposal && <Proposal />}
-      {showSuccess && <Success />}
+      {showSuccess && <Success assetDashboardLink={assetDashboardLink} />}
     </>
   );
 }

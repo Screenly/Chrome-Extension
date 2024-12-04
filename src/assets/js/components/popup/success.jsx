@@ -1,9 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-export const Success = () => {
-  const assetDashboardLink = useSelector((state) => state.popup.assetDashboardLink);
-
+export const Success = ({ assetDashboardLink }) => {
   const openAssetDashboard = () => {
     window.open(assetDashboardLink);
   };
