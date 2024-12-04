@@ -6,7 +6,7 @@ import { callApi } from '@/main';
 import { signIn } from '@/features/auth/authSlice';
 import { TokenHelpText } from '@/components/options/token-help-text';
 
-const SignInError = () => {
+const SignInFormError = () => {
   return (
     <div className='alert alert-danger mt-2' role='alert'>
       Unable to sign in. Check your credentials and internet connectivity,
@@ -15,9 +15,9 @@ const SignInError = () => {
   );
 }
 
-export const SignIn = () => {
+export const SignInForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [showSignInError, setShowSignInError] = useState(false);
+  const [showSignInFormError, setShowSignInFormError] = useState(false);
   const [token, setToken] = useState('');
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ export const SignIn = () => {
     return `${baseUrl}?${queryParams}`;
   };
 
-  const handleSignIn = async (event) => {
+  const handleSignInForm = async (event) => {
     event.preventDefault();
     setIsLoading(true);
 
@@ -41,10 +41,10 @@ export const SignIn = () => {
 
       await browser.storage.sync.set({ token: token });
 
-      setShowSignInError(false);
+      setShowSignInFormError(false);
       dispatch(signIn());
     } catch (error) {
-      setShowSignInError(true);
+      setShowSignInFormError(true);
     } finally {
       setIsLoading(false);
     }
@@ -66,7 +66,7 @@ export const SignIn = () => {
           className="btn btn-primary w-100"
           id="sign-in-submit"
           type="submit"
-          onClick={handleSignIn}
+          onClick={handleSignInForm}
         >
           {
             isLoading
@@ -82,8 +82,8 @@ export const SignIn = () => {
         <TokenHelpText />
 
         {
-          showSignInError
-            ? <SignInError />
+          showSignInFormError
+            ? <SignInFormError />
             : null
         }
       </form>

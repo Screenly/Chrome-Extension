@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const PopupSignIn = () => {
+export const SignInCallToAction = () => {
   const handleSignIn = (event) => {
     browser.runtime.openOptionsPage();
   };

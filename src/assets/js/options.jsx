@@ -12,13 +12,15 @@ import {
 import 'bootstrap/scss/bootstrap.scss';
 import '@/scss/style.scss';
 
-import { SignIn } from '@/components/options/sign-in';
-import { SignedIn } from '@/components/options/signed-in';
+import { SignInForm } from '@/components/options/sign-in';
+import {
+  AuthenticatedOptionsView
+} from '@/components/options/authenticated-options';
 
 import { store } from '@/store';
 import { signIn } from '@/features/auth/authSlice';
 
-const Options = () => {
+const OptionsPage = () => {
   const signedIn = useSelector((state) => state.auth.signedIn);
   const dispatch = useDispatch();
 
@@ -39,8 +41,8 @@ const Options = () => {
 
         {
           signedIn
-            ? <SignedIn />
-            : <SignIn />
+            ? <AuthenticatedOptionsView />
+            : <SignInForm />
         }
       </div>
     </div>
@@ -50,6 +52,6 @@ const Options = () => {
 const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(
   <Provider store={store}>
-    <Options />
+    <OptionsPage />
   </Provider>
 );

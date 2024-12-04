@@ -13,7 +13,7 @@ import 'bootstrap/scss/bootstrap.scss';
 import '@/scss/style.scss';
 import '@/scss/sweetalert-icons.scss';
 
-import { PopupSignIn } from '@/components/popup/sign-in';
+import { SignInCallToAction } from '@/components/popup/sign-in';
 import { Success } from '@/components/popup/success';
 import { Proposal } from '@/components/popup/proposal';
 
@@ -24,7 +24,7 @@ import {
   setShowProposal,
 } from '@/features/popup/popupSlice';
 
-const Popup = () => {
+const PopupPage = () => {
   const dispatch = useDispatch();
 
   const showSignIn = useSelector((state) => state.popup.showSignIn);
@@ -42,7 +42,7 @@ const Popup = () => {
 
   return (
     <>
-      {showSignIn && <PopupSignIn />}
+      {showSignIn && <SignInCallToAction />}
       {showProposal && <Proposal />}
       {showSuccess && <Success />}
     </>
@@ -52,6 +52,6 @@ const Popup = () => {
 const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(
   <Provider store={store}>
-    <Popup />
+    <PopupPage />
   </Provider>
 );

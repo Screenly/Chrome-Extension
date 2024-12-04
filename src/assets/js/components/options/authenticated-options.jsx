@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { signOut } from '@/features/auth/authSlice';
 
-export const SignedIn = () => {
+export const AuthenticatedOptionsView = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
