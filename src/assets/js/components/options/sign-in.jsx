@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { callApi } from '@/main';
-import { signIn } from '@/features/auth/authSlice';
+import { signIn } from '@/features/options/optionsSlice';
 import { TokenHelpText } from '@/components/options/token-help-text';
 
 const SignInFormError = () => {

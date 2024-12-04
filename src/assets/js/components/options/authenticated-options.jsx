@@ -3,7 +3,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { signOut } from '@/features/auth/authSlice';
+import { signOut } from '@/features/options/optionsSlice';
 
 export const AuthenticatedOptionsView = () => {
   const dispatch = useDispatch();

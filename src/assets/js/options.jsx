@@ -18,7 +18,7 @@ import {
 } from '@/components/options/authenticated-options';
 
 import { store } from '@/store';
-import { signIn } from '@/features/auth/authSlice';
+import { signIn } from '@/features/options/optionsSlice';
 
 const OptionsPage = () => {
   const signedIn = useSelector((state) => state.auth.signedIn);
