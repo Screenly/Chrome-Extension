@@ -8,6 +8,7 @@ export const TokenHelpText = () => {
         <a
           href="https://support.screenly.io/hc/en-us/articles/35897560148371-How-to-Generate-a-Screenly-API-Token"
           target="_blank"
+          rel="noreferrer"
         >this page</a>&nbsp;for details.
       </p>
     </div>

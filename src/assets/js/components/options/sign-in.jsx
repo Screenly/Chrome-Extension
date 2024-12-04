@@ -1,3 +1,5 @@
+/* global browser */
+
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -43,7 +45,7 @@ export const SignInForm = () => {
 
       setShowSignInFormError(false);
       dispatch(signIn());
-    } catch (error) {
+    } catch {
       setShowSignInFormError(true);
     } finally {
       setIsLoading(false);

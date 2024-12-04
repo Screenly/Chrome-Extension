@@ -1,3 +1,5 @@
+/* global browser */
+
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -20,7 +22,7 @@ import {
   setShowSuccess,
 } from '@/features/popup/popupSlice';
 
-export const Proposal = (props) => {
+export const Proposal = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [assetTitle, setAssetTitle] = useState('');
@@ -161,7 +163,7 @@ export const Proposal = (props) => {
       }
 
       await proposeToAddToScreenly(user, pageUrl, pageTitle, cookieJar);
-    } catch (error) {
+    } catch {
       window.close();
     }
   };

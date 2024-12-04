@@ -1,3 +1,5 @@
+/* global browser */
+
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
@@ -14,7 +16,7 @@ export const AuthenticatedOptionsView = () => {
 
     try {
       await browser.storage.sync.clear();
-    } catch (error) {
+    } catch {
       return;
     } finally {
       setIsLoading(false);

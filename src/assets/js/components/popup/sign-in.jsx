@@ -1,7 +1,9 @@
+/* global browser */
+
 import React from 'react';
 
 export const SignInCallToAction = () => {
-  const handleSignIn = (event) => {
+  const handleSignIn = () => {
     browser.runtime.openOptionsPage();
   };
 
