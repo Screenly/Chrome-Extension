@@ -183,7 +183,7 @@ export const Proposal = () => {
     }
 
     setButtonState('loading');
-    let headers = undefined;
+    let headers = {};
 
     if (saveAuthentication && currentProposal.cookieJar) {
       headers = {
@@ -194,26 +194,24 @@ export const Proposal = () => {
     }
 
     const state = currentProposal.state;
-    let action = undefined;
-
-    if (!state) {
-      action = createWebAsset(
-        currentProposal.user,
-        currentProposal.url,
-        currentProposal.title,
-        headers,
-        bypassVerification
-      );
-    } else {
-      action = updateWebAsset(
-        state.assetId,
-        currentProposal.user,
-        currentProposal.url,
-        currentProposal.title,
-        headers,
-        bypassVerification
-      );
-    }
+    let action = (
+      !state ?
+        createWebAsset(
+          currentProposal.user,
+          currentProposal.url,
+          currentProposal.title,
+          headers,
+          bypassVerification
+        ) :
+        updateWebAsset(
+          state.assetId,
+          currentProposal.user,
+          currentProposal.url,
+          currentProposal.title,
+          headers,
+          bypassVerification
+        )
+    );
 
     action
       .then((result) => {

@@ -4,7 +4,7 @@
 
 import '@/vendor/normalize-url';
 
-export function callApi(method, url, data=undefined, token=undefined) {
+export function callApi(method, url, data, token) {
   let init = {
     method: method,
     headers: {
