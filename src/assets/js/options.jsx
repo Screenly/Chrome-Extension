@@ -62,7 +62,7 @@ const OptionsPage = () => {
         >
           <section className="mt-2">
             <div className="text-center">
-              Don't have an account?
+              Don&apos;t have an account?
               &nbsp;
               <a
                 id="sign-up-link"
