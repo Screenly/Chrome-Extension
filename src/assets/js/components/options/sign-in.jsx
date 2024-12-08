@@ -10,7 +10,7 @@ import { TokenHelpText } from '@/components/options/token-help-text';
 
 const SignInFormError = () => {
   return (
-    <div className='alert alert-danger mt-2' role='alert'>
+    <div className='text-danger mt-3' role='alert'>
       Unable to sign in. Check your credentials and internet connectivity,
       then try again.
     </div>
@@ -62,7 +62,7 @@ export const SignInForm = () => {
         <TokenHelpText />
 
         <button
-          className="btn btn-primary w-100 mt-4"
+          className="btn btn-primary w-100 mt-5"
           id="sign-in-submit"
           type="submit"
           onClick={handleSignInForm}
