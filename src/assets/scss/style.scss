@@ -1,4 +1,4 @@
-$primary: #972EFF;
+$primary: #982FFF;
 
 @import 'bootstrap/scss/bootstrap';
 
@@ -31,11 +31,10 @@ body.popup {
 .container-small {
     margin: auto;
     width: 100%;
-    max-width: 450px;
+    width: 450px;
 }
 
 #sign-in-page {
-    min-height: 400px;
     h1 {
         font-weight: normal;
         font-size: 40px;
@@ -43,7 +42,6 @@ body.popup {
 }
 
 #signed-in-page {
-    min-height: 400px;
 }
 
 .break-anywhere {
@@ -65,11 +63,41 @@ body.popup {
 
 .OptionsPage {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
 
-  & > .container {
-    border-radius: 1rem;
+  & .container {
+    border: 0.5px solid #DEDEDE;
+    border-radius: 8px;
+  }
+
+  input {
+    border: 1px solid #DEDEDE;
+    border-radius: 4px;
+
+    &::placeholder {
+      color: #B0B2BF;
+    }
+  }
+
+  a {
+    color: #009CF6;
+  }
+
+  #sign-up-link {
+    color: #000000;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.TokenHelpText {
+  &.alert {
+    background-color: #F9F9F9;
   }
 }

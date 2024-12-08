@@ -2,7 +2,7 @@ import React from 'react';
 
 export const TokenHelpText = () => {
   return (
-    <div className="alert alert-info mt-3">
+    <div className="alert mt-3 mb-0 TokenHelpText">
       <p className="mb-0">
         For instructions on how to get your token, visit&nbsp;
         <a

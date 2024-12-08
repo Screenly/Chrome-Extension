@@ -23,12 +23,6 @@ export const SignInForm = () => {
   const [token, setToken] = useState('');
   const dispatch = useDispatch();
 
-  const getSignUpLink = () => {
-    const baseUrl = 'https://login.screenlyapp.com/sign-up';
-    const queryParams = `next=${window.location.href}`;
-    return `${baseUrl}?${queryParams}`;
-  };
-
   const handleSignInForm = async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -57,15 +51,18 @@ export const SignInForm = () => {
       <form className="sign-in">
         <div className="form-group mb-3">
           <input
-            className="form-control shadow-none border-3"
+            className="form-control shadow-none"
             id="token"
             type="password"
-            placeholder="Token"
+            placeholder="Your token"
             onChange={(event) => setToken(event.target.value)}
           />
         </div>
+
+        <TokenHelpText />
+
         <button
-          className="btn btn-primary w-100"
+          className="btn btn-primary w-100 mt-4"
           id="sign-in-submit"
           type="submit"
           onClick={handleSignInForm}
@@ -81,28 +78,12 @@ export const SignInForm = () => {
           }
         </button>
 
-        <TokenHelpText />
-
         {
           showSignInFormError
             ? <SignInFormError />
             : null
         }
       </form>
-      <section className="mt-2">
-        <div className="small text-center">
-          Need an account?
-          &nbsp;
-          <a
-            id="sign-up-link"
-            href={getSignUpLink()}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Sign Up
-          </a>
-        </div>
-      </section>
     </div>
   );
 };

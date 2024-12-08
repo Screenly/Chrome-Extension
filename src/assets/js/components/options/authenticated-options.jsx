@@ -29,9 +29,13 @@ export const AuthenticatedOptionsView = () => {
     <div>
       <div className="page" id="signed-in-page">
         <section>
-          Signed in
+          <h4 className="text-center mb-4">
+            You are already
+            <br />
+            signed in
+          </h4>
         </section>
-        <section className="mt-3">
+        <section className="mt-4">
           <button
             className="btn btn-primary w-100"
             id="sign-out"
