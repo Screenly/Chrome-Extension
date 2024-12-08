@@ -15,7 +15,7 @@ const SignInFormError = () => {
       then try again.
     </div>
   );
-}
+};
 
 export const SignInForm = () => {
   const [isLoading, setIsLoading] = useState(false);
