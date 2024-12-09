@@ -38,6 +38,7 @@ export const SignInForm = () => {
       await browser.storage.sync.set({ token: token });
 
       setShowSignInFormError(false);
+      window.close();
       dispatch(signIn());
     } catch {
       setShowSignInFormError(true);
