@@ -22,6 +22,7 @@ const popupSlice = createSlice({
     showSignIn: true,
     showProposal: false,
     showSuccess: false,
+    showSignInSuccess: false,
     assetDashboardLink: '',
   },
   reducers: {
@@ -29,6 +30,10 @@ const popupSlice = createSlice({
       state.showSuccess = true;
       state.showProposal = false;
     },
+    notifySignInSuccess: (state) => {
+      state.showSignIn = false;
+      state.showSignInSuccess = true;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -44,5 +49,6 @@ const popupSlice = createSlice({
 export const {
   setAssetDashboardLink,
   notifyAssetSaveSuccess,
+  notifySignInSuccess,
 } = popupSlice.actions;
 export default popupSlice.reducer;

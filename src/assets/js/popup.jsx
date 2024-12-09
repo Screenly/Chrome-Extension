@@ -16,6 +16,7 @@ import '@/scss/sweetalert-icons.scss';
 import { SignInCallToAction } from '@/components/popup/sign-in';
 import { Success } from '@/components/popup/success';
 import { Proposal } from '@/components/popup/proposal';
+import { SignInSuccess } from '@/components/popup/sign-in-success';
 
 import { store } from '@/store';
 import { signIn } from '@/features/popup/popupSlice';
@@ -28,6 +29,7 @@ const PopupPage = () => {
   const showSuccess = useSelector((state) => state.popup.showSuccess);
 
   const [assetDashboardLink, setAssetDashboardLink] = useState('');
+  const showSignInSuccess = useSelector((state) => state.popup.showSignInSuccess);
 
   useEffect(() => {
     dispatch(signIn());
@@ -42,6 +44,7 @@ const PopupPage = () => {
       {showSignIn && <SignInCallToAction />}
       {showProposal && <Proposal />}
       {showSuccess && <Success assetDashboardLink={assetDashboardLink} />}
+      {showSignInSuccess && <SignInSuccess />}
     </>
   );
 }

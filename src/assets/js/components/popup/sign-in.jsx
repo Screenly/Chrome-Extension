@@ -5,7 +5,9 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { callApi } from '@/main';
-import { signIn } from '@/features/options/optionsSlice';
+import {
+  notifySignInSuccess,
+} from '@/features/popup/popupSlice';
 import { TokenHelpText } from '@/components/options/token-help-text';
 
 const SignInFormError = ({ message }) => {
@@ -40,7 +42,7 @@ export const SignInCallToAction = () => {
       await browser.storage.sync.set({ token: token });
 
       setShowSignInFormError(false);
-      dispatch(signIn());
+      dispatch(notifySignInSuccess());
     } catch {
       setShowSignInFormError(true);
     } finally {
