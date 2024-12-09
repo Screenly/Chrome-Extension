@@ -16,6 +16,13 @@ export const signIn = createAsyncThunk(
   }
 );
 
+export const signOut = createAsyncThunk(
+  'popup/signOut',
+  async () => {
+    await browser.storage.sync.clear();
+  }
+);
+
 const popupSlice = createSlice({
   name: 'popup',
   initialState: {
@@ -24,6 +31,7 @@ const popupSlice = createSlice({
     showSuccess: false,
     showSignInSuccess: false,
     assetDashboardLink: '',
+    showSettings: false,
   },
   reducers: {
     notifyAssetSaveSuccess: (state) => {
@@ -33,7 +41,11 @@ const popupSlice = createSlice({
     notifySignInSuccess: (state) => {
       state.showSignIn = false;
       state.showSignInSuccess = true;
-    }
+    },
+    openSettings: (state) => {
+      state.showSettings = true;
+      state.showProposal = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -42,6 +54,10 @@ const popupSlice = createSlice({
           state.showSignIn = false;
           state.showProposal = true;
         }
+      })
+      .addCase(signOut.fulfilled, (state) => {
+        state.showSettings = false;
+        state.showSignIn = true;
       });
   },
 });
@@ -50,5 +66,6 @@ export const {
   setAssetDashboardLink,
   notifyAssetSaveSuccess,
   notifySignInSuccess,
+  openSettings,
 } = popupSlice.actions;
 export default popupSlice.reducer;

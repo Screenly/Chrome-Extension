@@ -28,6 +28,19 @@ body.popup {
     }
 }
 
+@mixin text-selection {
+  background-color: $primary;
+  color: #FFF;
+}
+
+::selection {
+  @include text-selection;
+}
+
+::-moz-selection {
+  @include text-selection;
+}
+
 .container-small {
     margin: auto;
     width: 100%;

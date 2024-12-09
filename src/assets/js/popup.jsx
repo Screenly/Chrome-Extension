@@ -9,6 +9,7 @@ import {
   useDispatch,
   useSelector,
 } from 'react-redux';
+import 'bootstrap-icons/font/bootstrap-icons.scss';
 
 import '@/scss/style.scss';
 import '@/scss/sweetalert-icons.scss';
@@ -17,6 +18,7 @@ import { SignInCallToAction } from '@/components/popup/sign-in';
 import { Success } from '@/components/popup/success';
 import { Proposal } from '@/components/popup/proposal';
 import { SignInSuccess } from '@/components/popup/sign-in-success';
+import { Settings } from '@/components/popup/settings';
 
 import { store } from '@/store';
 import { signIn } from '@/features/popup/popupSlice';
@@ -24,12 +26,15 @@ import { signIn } from '@/features/popup/popupSlice';
 const PopupPage = () => {
   const dispatch = useDispatch();
 
-  const showSignIn = useSelector((state) => state.popup.showSignIn);
-  const showProposal = useSelector((state) => state.popup.showProposal);
-  const showSuccess = useSelector((state) => state.popup.showSuccess);
+  const {
+    showSignIn,
+    showProposal,
+    showSuccess,
+    showSignInSuccess,
+    showSettings,
+  } = useSelector((state) => state.popup);
 
   const [assetDashboardLink, setAssetDashboardLink] = useState('');
-  const showSignInSuccess = useSelector((state) => state.popup.showSignInSuccess);
 
   useEffect(() => {
     dispatch(signIn());
@@ -45,6 +50,9 @@ const PopupPage = () => {
       {showProposal && <Proposal />}
       {showSuccess && <Success assetDashboardLink={assetDashboardLink} />}
       {showSignInSuccess && <SignInSuccess />}
+      {
+        showSettings && <Settings />
+      }
     </>
   );
 }
