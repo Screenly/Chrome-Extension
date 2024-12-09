@@ -16,6 +16,7 @@ import { SignInForm } from '@/components/options/sign-in';
 import {
   AuthenticatedOptionsView
 } from '@/components/options/authenticated-options';
+import { SignUpCallToAction } from './components/options/sign-up-cta';
 
 import { store } from '@/store';
 import { signIn } from '@/features/options/optionsSlice';
@@ -23,12 +24,6 @@ import { signIn } from '@/features/options/optionsSlice';
 const OptionsPage = () => {
   const signedIn = useSelector((state) => state.auth.signedIn);
   const dispatch = useDispatch();
-
-  const getSignUpLink = () => {
-    const baseUrl = 'https://login.screenlyapp.com/sign-up';
-    const queryParams = `next=${window.location.href}`;
-    return `${baseUrl}?${queryParams}`;
-  };
 
   useEffect(() => {
     browser.storage.sync.get('token').then((result) => {
@@ -57,24 +52,8 @@ const OptionsPage = () => {
               : <SignInForm />
           }
         </div>
-        <div
-          className="mt-4"
-        >
-          <section className="mt-2">
-            <div className="text-center">
-              Don&apos;t have an account?
-              &nbsp;
-              <a
-                id="sign-up-link"
-                href={getSignUpLink()}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <strong>Sign Up</strong>
-              </a>
-            </div>
-          </section>
-        </div>
+
+        { !signedIn && <SignUpCallToAction /> }
       </div>
     </div>
   );
