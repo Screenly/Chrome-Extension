@@ -54,14 +54,6 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: "src/assets/images/screenly-logo*",
-          to: "assets/images/[name][ext]",
-        },
-      ],
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
           from: "src/lib/vendor/browser-polyfill.min.js",
           to: "lib/vendor/[name][ext]",
         },
