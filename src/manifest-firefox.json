@@ -26,7 +26,6 @@
       "32": "assets/images/screenly-logo-32.png"
     }
   },
-  "options_page": "options.html",
   "browser_specific_settings": {
     "gecko": {
       "id": "addon@screenly.io",

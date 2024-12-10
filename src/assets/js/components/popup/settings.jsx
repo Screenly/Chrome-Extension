@@ -1,45 +1,37 @@
-/* global browser */
-
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { signOut } from '@/features/options/optionsSlice';
+import { useDispatch } from 'react-redux';
 
-export const AuthenticatedOptionsView = () => {
+import { signOut } from '@/features/popup/popupSlice';
+
+export const Settings = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignOut = async (event) => {
     event.preventDefault();
-
     setIsLoading(true);
-
-    try {
-      await browser.storage.sync.clear();
-    } catch {
-      return;
-    } finally {
-      setIsLoading(false);
-    }
-
     dispatch(signOut());
+    setIsLoading(false);
   };
 
   return (
-    <div>
-      <div className="page" id="signed-in-page">
-        <section>
-          <h4 className="text-center mb-4">
-            You are already
-            <br />
-            signed in
-          </h4>
+    <div className="page" id="success-page">
+      <div className="d-flex flex-column">
+        <section
+          className="align-items-center d-flex flex-grow-1 justify-content-center"
+        >
+          <div>
+            <h3 className="text-center mb-3">
+              You are already
+              <br />
+              signed in
+            </h3>
+          </div>
         </section>
-        <section className="mt-4">
+        <section>
           <button
             className="btn btn-primary w-100"
-            id="sign-out"
-            type="submit"
             onClick={handleSignOut}
           >
             {
@@ -49,7 +41,9 @@ export const AuthenticatedOptionsView = () => {
                     className="spinner spinner-border spinner-border-sm"
                   ></span>
                 )
-                : <span className="label">Sign Out</span>
+                : (
+                  <span className="label">Sign Out</span>
+                )
             }
           </button>
         </section>
@@ -57,4 +51,3 @@ export const AuthenticatedOptionsView = () => {
     </div>
   );
 };
-

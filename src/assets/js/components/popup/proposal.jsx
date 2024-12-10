@@ -17,7 +17,10 @@ import {
   updateWebAsset,
   State,
 } from '@/main';
-import { notifyAssetSaveSuccess } from '@/features/popup/popupSlice';
+import {
+  notifyAssetSaveSuccess,
+  openSettings,
+} from '@/features/popup/popupSlice';
 
 export const Proposal = () => {
   const dispatch = useDispatch();
@@ -173,7 +176,12 @@ export const Proposal = () => {
       });
   }, []);
 
-  const handleSubmission = async(event) => {
+  const handleSettings = (event) => {
+    event.preventDefault();
+    dispatch(openSettings());
+  };
+
+  const handleSubmission = async (event) => {
     event.preventDefault();
 
     let currentProposal = proposal;
@@ -292,59 +300,59 @@ export const Proposal = () => {
   }
 
   return (
-    <>
-      <div className="page" id="proposal-page">
-        <form id="add-it">
-          <section>
-            <h5 id="title">{assetTitle}</h5>
-          </section>
-          <section className="bg-light">
-            <div
-              className="break-anywhere text-monospace"
-              id="url"
+    <div className="page" id="proposal-page">
+      <form id="add-it">
+        <section>
+          <h5 id="title">{assetTitle}</h5>
+        </section>
+        <section className="bg-light">
+          <div
+            className="break-anywhere text-monospace"
+            id="url"
+          >
+            {assetUrl}
+          </div>
+        </section>
+        <section>
+          <div className="form-check">
+            <input
+              className="form-check-input shadow-none"
+              id="with-auth-check"
+              type="checkbox"
+              checked={saveAuthentication}
+              onChange={(e) => setSaveAuthentication(e.target.checked)}
+            />
+            <label
+              className="form-check-label"
+              htmlFor="with-auth-check"
             >
-              {assetUrl}
-            </div>
-          </section>
-          <section>
-            <div className="form-check">
-              <input
-                className="form-check-input shadow-none"
-                id="with-auth-check"
-                type="checkbox"
-                checked={saveAuthentication}
-                onChange={(e) => setSaveAuthentication(e.target.checked)}
-              />
-              <label
-                className="form-check-label"
-                htmlFor="with-auth-check"
-              >
-              Save Authentication
-              </label>
-            </div>
-            <SaveAuthWarning hostname={assetHostname} hidden={!saveAuthentication} />
-            <SaveAuthHelp />
-          </section>
+            Save Authentication
+            </label>
+          </div>
+          <SaveAuthWarning hostname={assetHostname} hidden={!saveAuthentication} />
+          <SaveAuthHelp />
+        </section>
 
-          <section id="verification" hidden={!bypassVerification}>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                id="no-verification-check"
-                type="checkbox"
-              />
-              <label
-                className="form-check-label"
-                htmlFor="no-verification-check"
-              >
-                Bypass Verification
-              </label>
-            </div>
-          </section>
+        <section id="verification" hidden={!bypassVerification}>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              id="no-verification-check"
+              type="checkbox"
+            />
+            <label
+              className="form-check-label"
+              htmlFor="no-verification-check"
+            >
+              Bypass Verification
+            </label>
+          </div>
+        </section>
 
-          <section>
+        <section>
+          <div className="d-flex">
             <button
-              className="btn btn-primary w-100"
+              className="btn btn-primary w-100 me-1"
               id="add-it-submit"
               type="submit"
               onClick={handleSubmission}
@@ -369,16 +377,22 @@ export const Proposal = () => {
                 Update Asset
               </span>
             </button>
-            <div
-              className="alert alert-danger mb-0 mt-3"
-              id="add-it-error"
-              hidden={!error.show}
+            <button
+              className="btn btn-primary"
+              onClick={handleSettings}
             >
-              {error.message}
-            </div>
-          </section>
-        </form>
-      </div>
-    </>
+              <i className="bi bi-gear"></i>
+            </button>
+          </div>
+          <div
+            className="alert alert-danger mb-0 mt-3"
+            id="add-it-error"
+            hidden={!error.show}
+          >
+            {error.message}
+          </div>
+        </section>
+      </form>
+    </div>
   );
 };

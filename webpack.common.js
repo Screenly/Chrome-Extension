@@ -7,7 +7,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
   entry: {
     'popup': './src/assets/js/popup.jsx',
-    'options': './src/assets/js/options.jsx',
   },
 
   module: {
@@ -72,11 +71,6 @@ module.exports = {
       filename: 'popup.html',
       template: './src/popup.html',
       chunks: ['popup']
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'options.html',
-      template: './src/options.html',
-      chunks: ['options']
     }),
 
     new MiniCssExtractPlugin(),
