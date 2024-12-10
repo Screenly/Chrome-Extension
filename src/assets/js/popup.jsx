@@ -14,7 +14,7 @@ import 'bootstrap-icons/font/bootstrap-icons.scss';
 import '@/scss/style.scss';
 import '@/scss/sweetalert-icons.scss';
 
-import { SignInCallToAction } from '@/components/popup/sign-in';
+import { SignInForm } from '@/components/popup/sign-in';
 import { Success } from '@/components/popup/success';
 import { Proposal } from '@/components/popup/proposal';
 import { SignInSuccess } from '@/components/popup/sign-in-success';
@@ -46,7 +46,7 @@ const PopupPage = () => {
 
   return (
     <>
-      {showSignIn && <SignInCallToAction />}
+      {showSignIn && <SignInForm />}
       {showProposal && <Proposal />}
       {showSuccess && <Success assetDashboardLink={assetDashboardLink} />}
       {showSignInSuccess && <SignInSuccess />}

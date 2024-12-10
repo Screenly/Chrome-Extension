@@ -8,7 +8,7 @@ import { callApi } from '@/main';
 import {
   notifySignInSuccess,
 } from '@/features/popup/popupSlice';
-import { TokenHelpText } from '@/components/options/token-help-text';
+import { TokenHelpText } from '@/components/popup/token-help-text';
 
 const SignInFormError = ({ message }) => {
   return (
@@ -21,7 +21,7 @@ const SignInFormError = ({ message }) => {
   );
 };
 
-export const SignInCallToAction = () => {
+export const SignInForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showSignInFormError, setShowSignInFormError] = useState(false);
   const [token, setToken] = useState('');
@@ -51,7 +51,7 @@ export const SignInCallToAction = () => {
   }
 
   return (
-    <div className="page" id="sign-in-page">
+    <div className="page mt-4" id="sign-in-page">
       <div className="d-flex flex-column">
         <section className="align-items-center d-flex flex-grow-1 justify-content-center border-0">
           <div className="text-center">
