@@ -1,31 +1,32 @@
 $primary: #982FFF;
 
-@import 'bootstrap/scss/bootstrap';
+@use 'bootstrap/scss/bootstrap' with (
+  $primary: $primary
+);
 
 body.popup {
-    .page {
-        width: 350px;
-        min-height: 300px;
-        display: grid;
-    }
+  .page {
+    min-width: 370px;
+    display: grid;
+  }
 
-    section {
-        padding: 20px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        font-size: 0.8rem;
-        width: 100%;
-        input {
-            font-size: 1rem;
-        }
+  section {
+    padding: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.8rem;
+    width: 100%;
+    input {
+      font-size: 1rem;
     }
+  }
 
-    label {
-        font-size: 1rem;
-    }
+  label {
+    font-size: 1rem;
+  }
 
-    h5 {
-        margin-bottom: 0;
-    }
+  h5 {
+    margin-bottom: 0;
+  }
 }
 
 @mixin text-selection {
@@ -41,20 +42,28 @@ body.popup {
   @include text-selection;
 }
 
-.container-small {
-    margin: auto;
-    width: 100%;
-    width: 450px;
-}
-
 #sign-in-page {
-    h1 {
-        font-weight: normal;
-        font-size: 40px;
-    }
-}
+  h1 {
+    font-weight: normal;
+    font-size: 40px;
+  }
 
-#signed-in-page {
+  input {
+    border: 1px solid #DEDEDE;
+    border-radius: 4px;
+
+    &:focus {
+      border-color: $primary;
+    }
+
+    &::placeholder {
+      color: #B0B2BF;
+    }
+  }
+
+  a {
+    color: #009CF6;
+  }
 }
 
 .break-anywhere {
@@ -67,46 +76,6 @@ body.popup {
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
-}
-
-#fail-message {
-    overflow-wrap: break-word;
-    max-width: 300px;
-}
-
-.OptionsPage {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-
-  & .container {
-    border: 0.5px solid #DEDEDE;
-    border-radius: 8px;
-  }
-
-  input {
-    border: 1px solid #DEDEDE;
-    border-radius: 4px;
-
-    &::placeholder {
-      color: #B0B2BF;
-    }
-  }
-
-  a {
-    color: #009CF6;
-  }
-
-  #sign-up-link {
-    color: #000000;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 }
 
 .TokenHelpText {

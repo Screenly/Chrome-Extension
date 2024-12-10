@@ -3,6 +3,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import classNames from 'classnames';
 
 import { callApi } from '@/main';
 import {
@@ -13,7 +14,7 @@ import { TokenHelpText } from '@/components/popup/token-help-text';
 const SignInFormError = ({ message }) => {
   return (
     <div className='text-danger mt-3' role='alert'>
-      Unable to sign in. Check your credentials and internet connectivity,
+      Unable to sign in? Check your credentials and internet connectivity,
       then try again.
 
       {message}
@@ -51,23 +52,33 @@ export const SignInForm = () => {
   }
 
   return (
-    <div className="page mt-4" id="sign-in-page">
+    <div className="page mt-2" id="sign-in-page">
       <div className="d-flex flex-column">
-        <section className="align-items-center d-flex flex-grow-1 justify-content-center border-0">
+        <section
+          className={classNames(
+            'align-items-center',
+            'd-flex',
+            'flex-grow-1',
+            'justify-content-center',
+            'border-0',
+          )}
+        >
           <div className="text-center">
-            <img src="assets/images/screenly-logo-128.png" width="64" />
-            <h1 className="mb-1 mt-2">Screenly</h1>
-            <a href="https://screenly.io">
-              screenly.io
-            </a>
+            <h3 className="mb-1">Sign In</h3>
           </div>
         </section>
         <section className="border-0">
           <form>
-            <div className="form-group mb-3">
+            <div className="mb-3">
+              <label className="form-label">
+                <small>
+                  Token
+                </small>
+              </label>
               <input
                 className="form-control shadow-none"
                 onChange={(event) => setToken(event.target.value)}
+                placeholder="Type here..."
                 type="password"
               />
             </div>

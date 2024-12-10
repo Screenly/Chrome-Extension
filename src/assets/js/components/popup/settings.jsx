@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import classNames from 'classnames';
 
 import { signOut } from '@/features/popup/popupSlice';
 
@@ -16,13 +17,19 @@ export const Settings = () => {
   };
 
   return (
-    <div className="page" id="success-page">
+    <div className="page mt-3" id="success-page">
       <div className="d-flex flex-column">
         <section
-          className="align-items-center d-flex flex-grow-1 justify-content-center"
+          className={classNames(
+            'align-items-center',
+            'd-flex',
+            'flex-grow-1',
+            'justify-content-center',
+            'border-bottom-0',
+          )}
         >
           <div>
-            <h3 className="text-center mb-3">
+            <h3 className="text-center">
               You are already
               <br />
               signed in
