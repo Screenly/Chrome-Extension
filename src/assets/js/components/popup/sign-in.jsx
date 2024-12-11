@@ -78,7 +78,7 @@ export const SignInForm = () => {
               <input
                 className="form-control shadow-none"
                 onChange={(event) => setToken(event.target.value)}
-                placeholder="Type here..."
+                placeholder="Enter token"
                 type="password"
               />
             </div>
