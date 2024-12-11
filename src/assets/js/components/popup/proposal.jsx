@@ -197,7 +197,8 @@ export const Proposal = () => {
       headers = {
         'Cookie': currentProposal.cookieJar.map(
           cookie => cookiejs.serialize(cookie.name, cookie.value)
-        ).join('; ')
+        )
+        .join('; ')
       };
     }
 
@@ -270,6 +271,17 @@ export const Proposal = () => {
                 };
               });
             } else if (!errorJson.type) {
+              if (
+                errorJson.code == '23514' &&
+                errorJson.error == 'Constraint failed.'
+              ) {
+                throw `
+                  Screenly cannot save the web page's credentials because
+                  the cookies are too large. Please try again without
+                  saving the authentication.
+                `;
+              }
+
               throw JSON.stringify(errorJson);
             } else {
               throw 'Unknown error';
