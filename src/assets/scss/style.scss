@@ -1,41 +1,69 @@
+$primary: #982FFF;
+
+@use 'bootstrap/scss/bootstrap' with (
+  $primary: $primary
+);
+
 body.popup {
-    .page {
-        width: 350px;
-        min-height: 300px;
-        display: grid;
-    }
+  .page {
+    width: 350px;
+    display: grid;
+  }
 
-    section {
-        padding: 20px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        font-size: 0.8rem;
-        width: 100%;
-        input {
-            font-size: 1rem;
-        }
+  section {
+    padding: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.8rem;
+    width: 100%;
+    input {
+      font-size: 1rem;
     }
+  }
 
-    label {
-        font-size: 1rem;
-    }
+  label {
+    font-size: 1rem;
+  }
 
-    h5 {
-        margin-bottom: 0;
-    }
+  h5 {
+    margin-bottom: 0;
+  }
 }
 
-.container-small {
-    margin: auto;
-    width: 100%;
-    max-width: 350px;
+@mixin text-selection {
+  background-color: $primary;
+  color: #FFF;
+}
+
+::selection {
+  @include text-selection;
+}
+
+::-moz-selection {
+  @include text-selection;
 }
 
 #sign-in-page {
-    min-height: 400px;
-    h1 {
-        font-weight: normal;
-        font-size: 40px;
+  h1 {
+    font-weight: normal;
+    font-size: 40px;
+  }
+
+  input {
+    border: 1px solid #DEDEDE;
+    border-radius: 4px;
+
+    &:focus {
+      border-color: $primary;
     }
+
+    &::placeholder {
+      color: #B0B2BF;
+    }
+  }
+
+  a {
+    color: #009CF6;
+  }
 }
 
 .break-anywhere {
@@ -50,7 +78,8 @@ body.popup {
     hyphens: auto;
 }
 
-#fail-message {
-    overflow-wrap: break-word;
-    max-width: 300px;
+.TokenHelpText {
+  &.alert {
+    background-color: #F9F9F9;
+  }
 }

@@ -81,7 +81,6 @@ class StateMocker {
             for (const [key, value] of Object.entries(d)) {
                 this.fakeStorage[key] = value;
             }
-            console.log(this.fakeStorage);
             return Promise.resolve();
         });
 
