@@ -1,20 +1,40 @@
 import React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 
 import { signOut } from '@/features/popup/popupSlice';
+import { getCompany, getUser } from '@/main'
+import { PopupSpinner } from '@/components/popup/popup-spinner';
 
 export const Settings = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
+  const [companyName, setCompanyName] = useState('');
+  const [isViewLoading, setIsViewLoading] = useState(false);
+
+  const getCompanyData = async () => {
+    setIsViewLoading(true);
+    const user = await getUser();
+    const company = await getCompany(user);
+    setCompanyName(company);
+    setIsViewLoading(false);
+  };
+
+  useEffect(() => {
+    getCompanyData();
+  }, [companyName]);
 
   const handleSignOut = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
+    setIsButtonLoading(true);
     dispatch(signOut());
-    setIsLoading(false);
+    setIsButtonLoading(false);
   };
+
+  if (isViewLoading) {
+    return <PopupSpinner />;
+  }
 
   return (
     <div className="page mt-3" id="success-page">
@@ -34,6 +54,14 @@ export const Settings = () => {
               <br />
               signed in
             </h3>
+
+            {
+              companyName && (
+                <p className="text-muted">
+                  You are signed in as a member of {companyName}.
+                </p>
+              )
+            }
           </div>
         </section>
         <section>
@@ -42,7 +70,7 @@ export const Settings = () => {
             onClick={handleSignOut}
           >
             {
-              isLoading
+              isButtonLoading
                 ? (
                   <span
                     className="spinner spinner-border spinner-border-sm"

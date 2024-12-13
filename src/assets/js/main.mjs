@@ -79,13 +79,15 @@ export function getWebAsset(assetId, user) {
   )
 }
 
-export function getTeam(user) {
-    return callApi(
+export async function getCompany(user) {
+    const result = await callApi(
         "GET",
-        "https://api.screenlyapp.com/api/v4.1/teams/",
+        "https://api.screenlyapp.com/api/v4.1/users/",
         null,
         user.token
     )
+
+    return result[0].company
 }
 
 export function getAssetDashboardLink(assetId) {
