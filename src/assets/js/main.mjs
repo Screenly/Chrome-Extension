@@ -79,6 +79,17 @@ export function getWebAsset(assetId, user) {
   )
 }
 
+export async function getCompany(user) {
+    const result = await callApi(
+        "GET",
+        "https://api.screenlyapp.com/api/v4.1/users/",
+        null,
+        user.token
+    )
+
+    return result[0].company
+}
+
 export function getAssetDashboardLink(assetId) {
   return `https://login.screenlyapp.com/login?next=/manage/assets/${assetId}`;
 }
