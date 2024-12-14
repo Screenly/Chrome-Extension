@@ -9,7 +9,7 @@ import { callApi } from '@/main';
 import {
   notifySignInSuccess,
 } from '@/features/popupSlice';
-import { TokenHelpText } from '@/components/popup/token-help-text';
+import { TokenHelpText } from '@/components/token-help-text';
 
 const SignInFormError = ({ message }) => {
   return (

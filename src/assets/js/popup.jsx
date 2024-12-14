@@ -14,11 +14,11 @@ import 'bootstrap-icons/font/bootstrap-icons.scss';
 import '@/scss/style.scss';
 import '@/scss/sweetalert-icons.scss';
 
-import { SignInForm } from '@/components/popup/sign-in';
-import { Success } from '@/components/popup/success';
-import { Proposal } from '@/components/popup/proposal';
-import { SignInSuccess } from '@/components/popup/sign-in-success';
-import { Settings } from '@/components/popup/settings';
+import { SignInForm } from '@/components/sign-in';
+import { Success } from '@/components/success';
+import { Proposal } from '@/components/proposal';
+import { SignInSuccess } from '@/components/sign-in-success';
+import { Settings } from '@/components/settings';
 
 import { store } from '@/store';
 import { signIn } from '@/features/popupSlice';
