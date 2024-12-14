@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 
-import { signOut } from '@/features/popup/popupSlice';
+import { signOut } from '@/features/popupSlice';
 
 export const Settings = () => {
   const dispatch = useDispatch();

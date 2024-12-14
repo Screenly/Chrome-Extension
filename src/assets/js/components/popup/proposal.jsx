@@ -20,7 +20,7 @@ import {
 import {
   notifyAssetSaveSuccess,
   openSettings,
-} from '@/features/popup/popupSlice';
+} from '@/features/popupSlice';
 
 export const Proposal = () => {
   const dispatch = useDispatch();

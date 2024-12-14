@@ -21,7 +21,7 @@ import { SignInSuccess } from '@/components/popup/sign-in-success';
 import { Settings } from '@/components/popup/settings';
 
 import { store } from '@/store';
-import { signIn } from '@/features/popup/popupSlice';
+import { signIn } from '@/features/popupSlice';
 
 const PopupPage = () => {
   const dispatch = useDispatch();

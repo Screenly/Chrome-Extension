@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { callApi } from '@/main';
 import {
   notifySignInSuccess,
-} from '@/features/popup/popupSlice';
+} from '@/features/popupSlice';
 import { TokenHelpText } from '@/components/popup/token-help-text';
 
 const SignInFormError = ({ message }) => {
