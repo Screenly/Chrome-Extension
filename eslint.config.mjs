@@ -45,6 +45,7 @@ export default [
         ...globals.node,
         Atomics: 'readonly',
         SharedArrayBuffer: 'readonly',
+        React: 'readonly',
       },
 
       ecmaVersion: 'latest',

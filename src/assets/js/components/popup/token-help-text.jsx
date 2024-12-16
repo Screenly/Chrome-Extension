@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const TokenHelpText = () => {
   return (
     <div className="alert mt-3 mb-1 TokenHelpText">
