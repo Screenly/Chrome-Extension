@@ -3,6 +3,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -36,6 +37,9 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+      React: 'react',
+    }),
     new CopyWebpackPlugin({
       patterns: [
         {

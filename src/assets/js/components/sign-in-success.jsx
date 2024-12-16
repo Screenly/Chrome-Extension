@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const SignInSuccess = () => {
   return (
     <div className="page" id="success-page">

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const Success = ({ assetDashboardLink }) => {
   const openAssetDashboard = () => {
     window.open(assetDashboardLink);

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const SaveAuthHelp = () => {
   return (
     <div className="font-italic mb-0 mt-2 text-muted">
