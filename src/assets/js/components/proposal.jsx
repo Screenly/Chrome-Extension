@@ -164,7 +164,7 @@ export const Proposal = () => {
 
       await proposeToAddToScreenly(user, pageUrl, pageTitle, cookieJar);
     } catch {
-      window.close();
+      dispatch(openSettings());
     }
   };
 
