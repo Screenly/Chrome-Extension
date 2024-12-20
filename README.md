@@ -41,7 +41,7 @@
 
 ## :computer: Develop
 
-The extension is built using [webpack](https://webpack.js.org/).
+The extension is built using [webpack](https://webpack.js.org/). Please check our [contributing guidelines](CONTRIBUTING.md) for detailed information about opening pull requests and releasing new versions.
 
 ```bash
 $ PLATFORM=<PLATFORM> \
@@ -83,31 +83,3 @@ $ ./bin/run_tests.sh
 * Click on **This Firefox** and then **Load Temporary Add-on**.
   * You can either select the `manifest.json` file or the zipped extension.
 * Find the extension URL and then open `moz-extension://<extension-id>/test/tests.html` in Firefox.
-
-## :rocket: Release
-
-* Generate a new release tag in `git`:
-
-```bash
-$ git pull
-$ git checkout master
-$ git tag
-[...]
-$ git tag -a vX.Y.Z -m "tl;dr changelog."
-$ git push origin vX.Y.Z
-```
-* Navigate to the [GitHub releases](https://github.com/Screenly/Browser-Extension/releases) and click 'Draft a new release'.
-* Select the tag you just created above and provide a release title and description.
-  * You can use `git diff v0.2.0..v0.3.0` to diff between the current and previous release to help you with the changelog.
-* Go to the [CI Job](https://github.com/Screenly/Browser-Extension/actions/workflows/build.yaml) and pull down the release `.zip` files for the release you created.
-  * You can verify the `.zip` files you downloaded with the GitHub CLI by running `gh attestation verify path/to/release.zip --owner Screenly`.
-
-### Chrome
-
-* Navigate to [Chrome Web Store Developer Dashboard](https://chrome.google.com/u/1/webstore/devconsole/).
-* Select the right publisher account and upload `screenly-chrome-extension.zip` you downloaded before.
-
-### Firefox
-
-* Navigate to Firefox's [Add-on Developer Hub](https://addons.mozilla.org/en-US/developers/).
-* Upload`screenly-firefox-extension.zip` you downloaded before.
