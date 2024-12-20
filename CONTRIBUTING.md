@@ -4,9 +4,9 @@ First off, thank you for considering contributing to this project! It's people l
 
 For a complete guide on how to contribute to open source projects on GitHub, please read the [GitHub Open Source Guide](https://opensource.guide/how-to-contribute/).
 
-## How Can I Contribute?
+## :raised_hands: How Can I Contribute?
 
-### Reporting Bugs
+### :lady_beetle: Reporting Bugs
 
 Before creating bug reports, please check the existing issues to avoid duplicates. When you create a bug report, include as many details as possible:
 
@@ -17,7 +17,7 @@ Before creating bug reports, please check the existing issues to avoid duplicate
 * Include screenshots if possible
 * Include your environment details like OS, Browser, Docker, and Node.js version.
 
-### Pull Requests
+### :sparkles: Pull Requests
 
 For a guide on how to open a pull request, please read [this documentation from GitHub](https://opensource.guide/how-to-contribute/#opening-a-pull-request).
 
